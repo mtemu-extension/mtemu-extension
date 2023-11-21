@@ -9,8 +9,6 @@ namespace mtemu
         {
             isCallSaved_ = false;
 
-            callsForm_.addressText.Text = $"{currentCall_.GetAddress():X3}";
-            callsForm_.commentText.Text = currentCall_.GetComment();
         }
 
         private void LoadCall_(Call call)
@@ -62,28 +60,17 @@ namespace mtemu
 
                 if (newSelected == -1) {
                     LoadCall_(Call.GetDefault());
-
-                    callsForm_.removeButton.Enabled = false;
-                    callsForm_.saveButton.Enabled = false;
-                    callsForm_.upButton.Enabled = false;
-                    callsForm_.downButton.Enabled = false;
                 }
                 else {
                     LoadCall_(new Call(emulator_.GetCall(newSelected)));
 
-                    callsForm_.removeButton.Enabled = true;
-                    callsForm_.saveButton.Enabled = true;
                     if (newSelected == 0) {
-                        callsForm_.upButton.Enabled = false;
                     }
                     else {
-                        callsForm_.upButton.Enabled = true;
                     }
                     if (newSelected == callsForm_.callList.Items.Count - 1) {
-                        callsForm_.downButton.Enabled = false;
                     }
                     else {
-                        callsForm_.downButton.Enabled = true;
                     }
                 }
             }
