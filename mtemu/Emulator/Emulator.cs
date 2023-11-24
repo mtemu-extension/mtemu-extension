@@ -738,7 +738,7 @@ namespace mtemu
         {
             if (devPtr_ == -1)
             {
-                return PortExtender.InPort.PORT_UNKNOWN;
+                return PortExtender.Port.PORT_UNKNOWN;
             }
 
             var val = devPtr_ << 2;
