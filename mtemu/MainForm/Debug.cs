@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace mtemu
 {
@@ -14,20 +14,27 @@ namespace mtemu
 
         private void SetLeds_(int value)
         {
-            for (int i = 0; i < leds_.Length; ++i) {
-                if (Helpers.IsBitSet(value, i)) {
-                    if (ledClicked_[i]) {
+            for (int i = 0; i < leds_.Length; ++i)
+            {
+                if (Helpers.IsBitSet(value, i))
+                {
+                    if (ledClicked_[i])
+                    {
                         leds_[i].Image = Properties.Resources.red_led_on;
                     }
-                    else {
+                    else
+                    {
                         leds_[i].Image = Properties.Resources.green_led_on;
                     }
                 }
-                else {
-                    if (ledClicked_[i]) {
+                else
+                {
+                    if (ledClicked_[i])
+                    {
                         leds_[i].Image = Properties.Resources.red_led_off;
                     }
-                    else {
+                    else
+                    {
                         leds_[i].Image = Properties.Resources.green_led_off;
                     }
                 }
@@ -36,13 +43,17 @@ namespace mtemu
 
         private void LedsAnimation_()
         {
-            Action<object> toggleLed = (object obj) => {
-                int number = (int) obj;
-                for (int i = 0; i < leds_.Length; ++i) {
-                    if (Helpers.IsBitSet(number, i)) {
+            Action<object> toggleLed = (object obj) =>
+            {
+                int number = (int)obj;
+                for (int i = 0; i < leds_.Length; ++i)
+                {
+                    if (Helpers.IsBitSet(number, i))
+                    {
                         ledClicked_[i] = true;
                     }
-                    else {
+                    else
+                    {
                         ledClicked_[i] = false;
                     }
                 }
@@ -51,7 +62,8 @@ namespace mtemu
             TimerCallback callback = new TimerCallback(toggleLed);
 
             int count = 8;
-            for (int i = 0; i < count; ++i) {
+            for (int i = 0; i < count; ++i)
+            {
                 new System.Threading.Timer(callback, 8, i * 600, -1);
                 new System.Threading.Timer(callback, 4, i * 600 + 100, -1);
                 new System.Threading.Timer(callback, 2, i * 600 + 200, -1);
@@ -68,7 +80,8 @@ namespace mtemu
         private void UpdateEggsCounter_()
         {
             helpForm_.leftLabel.Text = $"{EasterEgg.FoundEggsCount()}/{EasterEgg.EggsCount()}";
-            if (EasterEgg.EggsCount() - EasterEgg.FoundEggsCount() == 0 && !EasterEgg.IsNotified()) {
+            if (EasterEgg.EggsCount() - EasterEgg.FoundEggsCount() == 0 && !EasterEgg.IsNotified())
+            {
                 EasterEgg.SetNotified();
                 MessageBox.Show(
                     "Воу, ты нашел все пасхалки!\nНапиши в телеграме!\nCсылка будет в разделе помощи!",
@@ -94,10 +107,12 @@ namespace mtemu
         private void SetFlag_(TextBox textBox, string prefix, bool value)
         {
             textBox.Text = prefix + (value ? "1" : "0");
-            if (value) {
+            if (value)
+            {
                 textBox.BackColor = Color.LightGreen;
             }
-            else {
+            else
+            {
                 textBox.BackColor = disabledColor_;
             }
         }
@@ -106,10 +121,12 @@ namespace mtemu
         {
             string oldValue = textBox.Text;
             textBox.Text = value;
-            if (asNew || textBox.Text == oldValue) {
+            if (asNew || textBox.Text == oldValue)
+            {
                 textBox.BackColor = disabledColor_;
             }
-            else {
+            else
+            {
                 textBox.BackColor = changedColor_;
             }
         }
@@ -121,7 +138,8 @@ namespace mtemu
 
         private void UpdateCommmandList()
         {
-            if (emulator_.CommandsCount() > 0) {
+            if (emulator_.CommandsCount() > 0)
+            {
                 ChangeCommand_(emulator_.GetNextIndex(), selectedColor_);
                 SelectPrevCommand_(emulator_.GetPrevIndex());
             }
@@ -144,29 +162,35 @@ namespace mtemu
             SetOut_(portText, $"{emulator_.GetPort()}", asNew);
 
             int pc = emulator_.GetPC();
-            if (pc == -1) {
+            if (pc == -1)
+            {
                 pc = 0;
             }
             SetOut_(pcText, $"0x{pc:X3}", asNew);
 
             SetOut_(rqText, emulator_.GetRegQ(), asNew);
-            for (int i = 0; i < Emulator.GetRegSize(); ++i) {
+            for (int i = 0; i < Emulator.GetRegSize(); ++i)
+            {
                 SetOut_(regTexts_[i], emulator_.GetRegValue(i), asNew);
             }
         }
 
         private void UpdateStack_(bool asNew = false)
         {
-            for (int i = 0; i < Emulator.GetStackSize(); ++i) {
+            for (int i = 0; i < Emulator.GetStackSize(); ++i)
+            {
                 ListViewItem item = stackForm_.stackListView.Items[i];
                 ListViewItem.ListViewSubItem subitem = item.SubItems[2];
                 string newText = $"0x{emulator_.GetStackValue(i):X3}";
-                if (item.BackColor != enabledColor_) {
+                if (item.BackColor != enabledColor_)
+                {
                     item.BackColor = enabledColor_;
                 }
-                if (subitem.Text != newText) {
+                if (subitem.Text != newText)
+                {
                     subitem.Text = newText;
-                    if (!asNew) {
+                    if (!asNew)
+                    {
                         item.BackColor = changedColor_;
                         stackForm_.stackListView.EnsureVisible(i);
                     }
@@ -176,19 +200,23 @@ namespace mtemu
 
         private void UpdateMemory_(bool asNew = false)
         {
-            for (int i = 0; i < Emulator.GetMemorySize(); ++i) {
+            for (int i = 0; i < Emulator.GetMemorySize(); ++i)
+            {
                 ListViewItem item = memoryForm_.memoryListView.Items[i];
                 string newText = Helpers.IntToBinary(emulator_.GetMemValue(i), 8, 4);
                 string newText2 = $"0x{emulator_.GetMemValue(i):X2}";
 
-                if (item.BackColor != enabledColor_) {
+                if (item.BackColor != enabledColor_)
+                {
                     item.BackColor = enabledColor_;
                 }
 
-                if (item.SubItems[2].Text != newText) {
+                if (item.SubItems[2].Text != newText)
+                {
                     item.SubItems[2].Text = newText;
                     item.SubItems[3].Text = newText2;
-                    if (!asNew) {
+                    if (!asNew)
+                    {
                         item.BackColor = changedColor_;
                     }
                 }
@@ -243,43 +271,44 @@ namespace mtemu
 
         private void ResultCodeHandler_(Emulator.ResultCode rc)
         {
-            switch (rc) {
-            case Emulator.ResultCode.Loop:
-                MessageBox.Show(
-                    "Не удалось определить, где заканчивается программа!",
-                    "Залупа!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning,
-                    MessageBoxDefaultButton.Button1
-                );
-                break;
-            case Emulator.ResultCode.IncorrectCommand:
-                MessageBox.Show(
-                    "Невозможно исполнить команду!",
-                    "Некорректная команда!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error,
-                    MessageBoxDefaultButton.Button1
-                );
-                break;
-            case Emulator.ResultCode.NoCommands:
-                MessageBox.Show(
-                    "Вы не добавили ни одной команды!",
-                    "Нет комманд!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning,
-                    MessageBoxDefaultButton.Button1
-                );
-                break;
-            case Emulator.ResultCode.End:
-                MessageBox.Show(
-                    "Вы дошли до конца программы!",
-                    "Это всё...",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information,
-                    MessageBoxDefaultButton.Button1
-                );
-                break;
+            switch (rc)
+            {
+                case Emulator.ResultCode.Loop:
+                    MessageBox.Show(
+                        "Не удалось определить, где заканчивается программа!",
+                        "Залупа!",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning,
+                        MessageBoxDefaultButton.Button1
+                    );
+                    break;
+                case Emulator.ResultCode.IncorrectCommand:
+                    MessageBox.Show(
+                        "Невозможно исполнить команду!",
+                        "Некорректная команда!",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error,
+                        MessageBoxDefaultButton.Button1
+                    );
+                    break;
+                case Emulator.ResultCode.NoCommands:
+                    MessageBox.Show(
+                        "Вы не добавили ни одной команды!",
+                        "Нет комманд!",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning,
+                        MessageBoxDefaultButton.Button1
+                    );
+                    break;
+                case Emulator.ResultCode.End:
+                    MessageBox.Show(
+                        "Вы дошли до конца программы!",
+                        "Это всё...",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1
+                    );
+                    break;
             }
 
             UpdateOutput_();

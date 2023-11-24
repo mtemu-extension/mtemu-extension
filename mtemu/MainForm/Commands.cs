@@ -8,18 +8,23 @@ namespace mtemu
     {
         private void UpdateLabels_()
         {
-            for (int i = 0; i < textLabels_.Length; ++i) {
+            for (int i = 0; i < textLabels_.Length; ++i)
+            {
                 string newLabel = currentCommand_.GetLabel(i);
-                if (i == 0) {
+                if (i == 0)
+                {
                     newLabel += $" = 0x{currentCommand_.GetNextAddr():X3}";
                 }
-                if (i == 0 || newLabel.Length <= 5) {
+                if (i == 0 || newLabel.Length <= 5)
+                {
                     textLabels_[i].Font = new Font("Consolas", 10F);
                 }
-                else if (newLabel.Length <= 7) {
+                else if (newLabel.Length <= 7)
+                {
                     textLabels_[i].Font = new Font("Consolas", 10F - newLabel.Length + 5);
                 }
-                else {
+                else
+                {
                     textLabels_[i].Font = new Font("Consolas", 10F - newLabel.Length + 6);
                 }
                 textLabels_[i].Text = newLabel;
@@ -28,7 +33,8 @@ namespace mtemu
 
         private void UpdateTexts_()
         {
-            for (int i = 0; i < textBoxes_.Length; ++i) {
+            for (int i = 0; i < textBoxes_.Length; ++i)
+            {
                 textBoxes_[i].Text = Helpers.IntToBinary(currentCommand_[i], 4);
                 textBoxes_[i].BackColor = enabledColor_;
             }
@@ -59,8 +65,10 @@ namespace mtemu
                 return;
             }
 
-            if (newSelected != selected_ || force) {
-                if (!isCommandSaved_ && !force) {
+            if (newSelected != selected_ || force)
+            {
+                if (!isCommandSaved_ && !force)
+                {
                     DialogResult saveRes = MessageBox.Show(
                         "Сохранить текущую команду?",
                         "Сохранение",
@@ -68,16 +76,19 @@ namespace mtemu
                         MessageBoxIcon.Question,
                         MessageBoxDefaultButton.Button1
                     );
-                    if (saveRes == DialogResult.Cancel) {
+                    if (saveRes == DialogResult.Cancel)
+                    {
                         return;
                     }
-                    if (saveRes == DialogResult.Yes) {
+                    if (saveRes == DialogResult.Yes)
+                    {
                         SaveCommand_();
                     }
                 }
                 SelectCommand_(newSelected, color);
 
-                if (newSelected == -1) {
+                if (newSelected == -1)
+                {
                     LoadCommand_(Command.GetDefault());
 
                     removeButton.Enabled = false;
@@ -85,21 +96,26 @@ namespace mtemu
                     upButton.Enabled = false;
                     downButton.Enabled = false;
                 }
-                else {
+                else
+                {
                     LoadCommand_(new Command(emulator_.GetCommand(newSelected)));
 
                     removeButton.Enabled = true;
                     saveButton.Enabled = true;
-                    if (newSelected == 0) {
+                    if (newSelected == 0)
+                    {
                         upButton.Enabled = false;
                     }
-                    else {
+                    else
+                    {
                         upButton.Enabled = true;
                     }
-                    if (newSelected == commandList.Items.Count - 1) {
+                    if (newSelected == commandList.Items.Count - 1)
+                    {
                         downButton.Enabled = false;
                     }
-                    else {
+                    else
+                    {
                         downButton.Enabled = true;
                     }
                 }
@@ -124,18 +140,22 @@ namespace mtemu
             string number = "";
             string jump = "";
             string raw = "";
-            if (!command.isOffset) {
+            if (!command.isOffset)
+            {
                 number = $"0x{command.GetNumber():X3}";
                 jump = command.GetJumpName();
-                for (int i = 0; i < command.GetLength(); ++i) {
+                for (int i = 0; i < command.GetLength(); ++i)
+                {
                     raw += $"{Helpers.IntToBinary(command[i], 4)} ";
                 }
             }
-            else {
+            else
+            {
                 raw = command.GetName();
             }
             ListViewItem lv = new ListViewItem(new string[] { "", number, command.GetName(), jump, raw });
-            if (command.isOffset) {
+            if (command.isOffset)
+            {
                 lv.Font = new Font("Consolas", 10F, FontStyle.Italic | FontStyle.Underline);
             }
             return lv;
@@ -143,7 +163,8 @@ namespace mtemu
 
         private void CommandListSelectedIndexChanged_(object sender, EventArgs e)
         {
-            if (commandList.SelectedIndices.Count != 0) {
+            if (commandList.SelectedIndices.Count != 0)
+            {
                 ChangeCommand_(commandList.SelectedIndices[0], selectedColor_);
             }
         }
@@ -165,7 +186,8 @@ namespace mtemu
             isCommandSaved_ = true;
 
             int index = selected_ + 1;
-            if (!emulator_.AddCommand(index, new Command(currentCommand_))) {
+            if (!emulator_.AddCommand(index, new Command(currentCommand_)))
+            {
                 IncorrectCommandDialog();
                 return;
             }
@@ -182,13 +204,16 @@ namespace mtemu
             isCommandSaved_ = true;
 
             int number = selected_;
-            if (number != -1) {
-                if (!emulator_.UpdateCommand(number, new Command(currentCommand_))) {
+            if (number != -1)
+            {
+                if (!emulator_.UpdateCommand(number, new Command(currentCommand_)))
+                {
                     IncorrectCommandDialog();
                     return;
                 }
 
-                for (int i = number; i < emulator_.CommandsCount(); ++i) {
+                for (int i = number; i < emulator_.CommandsCount(); ++i)
+                {
                     commandList.Items[i] = CommandToItems(emulator_.GetCommand(i));
                 }
                 ChangeCommand_(number, selectedColor_, true);
@@ -219,12 +244,14 @@ namespace mtemu
         private void MoveUpCommand_()
         {
             int index = selected_;
-            if (index == 0) {
+            if (index == 0)
+            {
                 return;
             }
             emulator_.MoveCommandUp(index);
 
-            for (int i = index - 1; i < emulator_.CommandsCount(); ++i) {
+            for (int i = index - 1; i < emulator_.CommandsCount(); ++i)
+            {
                 commandList.Items[i] = CommandToItems(emulator_.GetCommand(i));
             }
 
@@ -241,7 +268,8 @@ namespace mtemu
             }
             emulator_.MoveCommandDown(index);
 
-            for (int i = index; i < emulator_.CommandsCount(); ++i) {
+            for (int i = index; i < emulator_.CommandsCount(); ++i)
+            {
                 commandList.Items[i] = CommandToItems(emulator_.GetCommand(i));
             }
 
@@ -252,7 +280,8 @@ namespace mtemu
 
         private void ChangeView_()
         {
-            for (int i = 0; i < commandList.Columns.Count; ++i) {
+            for (int i = 0; i < commandList.Columns.Count; ++i)
+            {
                 int t = commandList.Columns[i].Width;
                 commandList.Columns[i].Width = commandsListWidths_[i];
                 commandsListWidths_[i] = t;
@@ -296,7 +325,7 @@ namespace mtemu
 
         private void DefaultTextEnter_(object sender, EventArgs e)
         {
-            TextBox textBox = (TextBox) sender;
+            TextBox textBox = (TextBox)sender;
             textBox.SelectionStart = 0;
             textBox.SelectionLength = textBox.TextLength;
         }
@@ -376,17 +405,22 @@ namespace mtemu
             int selLen = textBox.SelectionLength;
             int value = Helpers.BinaryToInt(textBox.Text);
 
-            if (DefaultKeyDown_(e)) {
+            if (DefaultKeyDown_(e))
+            {
                 e.Handled = true;
             }
-            else if (e.KeyCode == Keys.Up) {
-                if (value > 0) {
+            else if (e.KeyCode == Keys.Up)
+            {
+                if (value > 0)
+                {
                     textBox.Text = Helpers.IntToBinary(value - 1, 4);
                 }
                 e.Handled = true;
             }
-            else if (e.KeyCode == Keys.Down) {
-                if (value < 15) {
+            else if (e.KeyCode == Keys.Down)
+            {
+                if (value < 15)
+                {
                     textBox.Text = Helpers.IntToBinary(value + 1, 4);
                 }
                 e.Handled = true;

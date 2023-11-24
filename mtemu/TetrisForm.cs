@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace mtemu
@@ -30,10 +30,12 @@ namespace mtemu
             DialogResult = DialogResult.OK;
             TickTimer.Enabled = false;
             string end = "очков";
-            if (score_ % 10 == 1 && score_ != 11) {
+            if (score_ % 10 == 1 && score_ != 11)
+            {
                 end = "очко";
             }
-            else if (2 <= score_ % 10 && score_ % 10 <= 4) {
+            else if (2 <= score_ % 10 && score_ % 10 <= 4)
+            {
                 end = "очка";
             }
             MessageBox.Show(
@@ -58,25 +60,27 @@ namespace mtemu
 
         private void IncRowScore_(int rowsCount)
         {
-            if (rowsCount > 0) {
+            if (rowsCount > 0)
+            {
                 rowsCount += prevRowsCount;
             }
             prevRowsCount = rowsCount;
 
             int scoreInc = 0;
-            switch (rowsCount) {
-            case 1:
-                scoreInc = 100;
-                break;
-            case 2:
-                scoreInc = 200;
-                break;
-            case 3:
-                scoreInc = 400;
-                break;
-            case 4:
-                scoreInc = 800;
-                break;
+            switch (rowsCount)
+            {
+                case 1:
+                    scoreInc = 100;
+                    break;
+                case 2:
+                    scoreInc = 200;
+                    break;
+                case 3:
+                    scoreInc = 400;
+                    break;
+                case 4:
+                    scoreInc = 800;
+                    break;
             }
 
             SetScore_(score_ + scoreInc);
@@ -87,12 +91,15 @@ namespace mtemu
             var gr = Graphics.FromImage(bitfield_);
             gr.Clear(Color.Black);
             gr.DrawRectangle(Pens.Red, k_, k_, (width_ - 1) * k_, (height_ - 1) * k_);
-            for (int i = 0; i < width_; i++) {
-                for (int j = 0; j < height_; j++) {
+            for (int i = 0; i < width_; i++)
+            {
+                for (int j = 0; j < height_; j++)
+                {
                     gr.FillRectangle(Brushes.Green, i * k_, j * k_, (k_ - 1) * field_[i, j], (k_ - 1) * field_[i, j]);
                 }
             }
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 4; i++)
+            {
                 gr.FillRectangle(Brushes.Red, shape_[1, i] * k_, shape_[0, i] * k_, k_ - 1, k_ - 1);
             }
             FieldPictureBox.Image = bitfield_;
@@ -100,7 +107,8 @@ namespace mtemu
 
         private void TickTimerTick_(object sender, EventArgs e)
         {
-            if (field_[8, 4] == 1) {
+            if (field_[8, 4] == 1)
+            {
                 Close();
                 return;
             }
@@ -109,10 +117,13 @@ namespace mtemu
                 from i in Enumerable.Range(0, field_.GetLength(1))
                 where (Enumerable.Range(0, field_.GetLength(0)).Select(j => field_[j, i]).Sum() >= width_ - 1)
                 select i
-            ).ToArray().Take(1)) {
+            ).ToArray().Take(1))
+            {
                 ++rowsCount;
-                for (int k = i; k > 1; k--) {
-                    for (int l = 1; l < width_; l++) {
+                for (int k = i; k > 1; k--)
+                {
+                    for (int l = 1; l < width_; l++)
+                    {
                         field_[l, k] = field_[l, k - 1];
                     }
                 }
@@ -123,78 +134,85 @@ namespace mtemu
 
         private void FormKeyDown_(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode) {
-            case Keys.A:
-            case Keys.Left:
-                Move(-1, 0);
-                break;
-            case Keys.D:
-            case Keys.Right:
-                Move(1, 0);
-                break;
-            case Keys.W:
-            case Keys.Up:
-                var shapeT = new int[2, 4];
-                Array.Copy(shape_, shapeT, shape_.Length);
-                int maxx = Enumerable.Range(0, 4).Select(j => shape_[1, j]).ToArray().Max();
-                int maxy = Enumerable.Range(0, 4).Select(j => shape_[0, j]).ToArray().Max();
-                for (int i = 0; i < 4; i++) {
-                    int temp = shape_[0, i];
-                    shape_[0, i] = maxy - (maxx - shape_[1, i]) - 1;
-                    shape_[1, i] = maxx - (3 - (maxy - temp)) + 1;
-                }
-                if (FindMistake_())
-                    Array.Copy(shapeT, shape_, shape_.Length);
-                break;
-            case Keys.S:
-            case Keys.Down:
-                TickTimer.Interval = 50;
-                break;
-            case Keys.Enter:
-                TickTimer.Enabled = !TickTimer.Enabled;
-                break;
+            switch (e.KeyCode)
+            {
+                case Keys.A:
+                case Keys.Left:
+                    Move(-1, 0);
+                    break;
+                case Keys.D:
+                case Keys.Right:
+                    Move(1, 0);
+                    break;
+                case Keys.W:
+                case Keys.Up:
+                    var shapeT = new int[2, 4];
+                    Array.Copy(shape_, shapeT, shape_.Length);
+                    int maxx = Enumerable.Range(0, 4).Select(j => shape_[1, j]).ToArray().Max();
+                    int maxy = Enumerable.Range(0, 4).Select(j => shape_[0, j]).ToArray().Max();
+                    for (int i = 0; i < 4; i++)
+                    {
+                        int temp = shape_[0, i];
+                        shape_[0, i] = maxy - (maxx - shape_[1, i]) - 1;
+                        shape_[1, i] = maxx - (3 - (maxy - temp)) + 1;
+                    }
+                    if (FindMistake_())
+                        Array.Copy(shapeT, shape_, shape_.Length);
+                    break;
+                case Keys.S:
+                case Keys.Down:
+                    TickTimer.Interval = 50;
+                    break;
+                case Keys.Enter:
+                    TickTimer.Enabled = !TickTimer.Enabled;
+                    break;
             }
         }
 
         private void SetShape_()
         {
             Random x = new Random(DateTime.Now.Millisecond);
-            switch (x.Next(7)) {
-            case 0:
-                shape_ = new int[,] { { 2, 3, 4, 5 }, { 8, 8, 8, 8 } };
-                break;
-            case 1:
-                shape_ = new int[,] { { 2, 3, 2, 3 }, { 8, 8, 9, 9 } };
-                break;
-            case 2:
-                shape_ = new int[,] { { 2, 3, 4, 4 }, { 8, 8, 8, 9 } };
-                break;
-            case 3:
-                shape_ = new int[,] { { 2, 3, 4, 4 }, { 8, 8, 8, 7 } };
-                break;
-            case 4:
-                shape_ = new int[,] { { 3, 3, 4, 4 }, { 7, 8, 8, 9 } };
-                break;
-            case 5:
-                shape_ = new int[,] { { 3, 3, 4, 4 }, { 9, 8, 8, 7 } };
-                break;
-            case 6:
-                shape_ = new int[,] { { 3, 4, 4, 4 }, { 8, 7, 8, 9 } };
-                break;
+            switch (x.Next(7))
+            {
+                case 0:
+                    shape_ = new int[,] { { 2, 3, 4, 5 }, { 8, 8, 8, 8 } };
+                    break;
+                case 1:
+                    shape_ = new int[,] { { 2, 3, 2, 3 }, { 8, 8, 9, 9 } };
+                    break;
+                case 2:
+                    shape_ = new int[,] { { 2, 3, 4, 4 }, { 8, 8, 8, 9 } };
+                    break;
+                case 3:
+                    shape_ = new int[,] { { 2, 3, 4, 4 }, { 8, 8, 8, 7 } };
+                    break;
+                case 4:
+                    shape_ = new int[,] { { 3, 3, 4, 4 }, { 7, 8, 8, 9 } };
+                    break;
+                case 5:
+                    shape_ = new int[,] { { 3, 3, 4, 4 }, { 9, 8, 8, 7 } };
+                    break;
+                case 6:
+                    shape_ = new int[,] { { 3, 4, 4, 4 }, { 8, 7, 8, 9 } };
+                    break;
             }
         }
         private void FormKeyUp_(object sender, KeyEventArgs e) => TickTimer.Interval = 250;
 
         private new void Move(int x, int y, bool cancel = false)
         {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 4; i++)
+            {
                 shape_[1, i] += x;
                 shape_[0, i] += y;
             }
-            if (!cancel && FindMistake_()) {
+            if (!cancel && FindMistake_())
+            {
                 Move(-x, -y, true);
-                if (y != 0) {
-                    for (int i = 0; i < 4; i++) {
+                if (y != 0)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
                         field_[shape_[1, i], shape_[0, i]]++;
                     }
                     IncTickScore_();
@@ -206,8 +224,10 @@ namespace mtemu
 
         private bool FindMistake_()
         {
-            for (int i = 0; i < 4; i++) {
-                if (shape_[1, i] >= width_ || shape_[0, i] >= height_ || shape_[1, i] <= 0 || shape_[0, i] <= 0 || field_[shape_[1, i], shape_[0, i]] == 1) {
+            for (int i = 0; i < 4; i++)
+            {
+                if (shape_[1, i] >= width_ || shape_[0, i] >= height_ || shape_[1, i] <= 0 || shape_[0, i] <= 0 || field_[shape_[1, i], shape_[0, i]] == 1)
+                {
                     return true;
                 }
             }

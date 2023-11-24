@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace mtemu
 {
@@ -14,7 +14,8 @@ namespace mtemu
         /// </summary>
         public static void DpiFix()
         {
-            if (Environment.OSVersion.Version.Major >= 6) {
+            if (Environment.OSVersion.Version.Major >= 6)
+            {
                 SetProcessDPIAware();
             }
         }
