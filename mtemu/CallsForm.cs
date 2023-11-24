@@ -15,6 +15,14 @@ namespace mtemu
             mainForm_ = mainForm;
         }
 
+        public void Reset()
+        {
+            foreach (ListViewItem item in mainForm_.GetItemsMapCall())
+            {
+                listViewCommand.Items.Add(item);
+            }
+        }
+
 
         private void CallsFormClosing_(object sender, FormClosingEventArgs e)
         {
@@ -32,27 +40,27 @@ namespace mtemu
 
         private void AddCall(object sender, EventArgs e)
         {
-            mainForm_.AddCall();
+            mainForm_.AddCall(1, 1, 1);
         }
 
         private void SaveCall(object sender, EventArgs e)
         {
-            mainForm_.EditCall();
+            mainForm_.EditCall(1, 1, 1);
         }
 
         private void CreateCommand(object sender, EventArgs e)
         {
-            mainForm_.AddCommand();
+            mainForm_.AddMapCall(1, "", 1);
         }
 
         private void EditCommand(object sender, EventArgs e)
         {
-            mainForm_.EditCommand();
+            mainForm_.EditMapCall();
         }
 
         private void DeleteCommand(object sender, EventArgs e)
         {
-            mainForm_.RemoveCommand();
+            mainForm_.RemoveMapCall();
         }
 
         private void Discard(object sender, EventArgs e)
@@ -72,12 +80,12 @@ namespace mtemu
 
         private void SelectCommand(object sender, EventArgs e)
         {
-            int index = listViewCommand.SelectedIndices[0];
+           // int index = listViewCommand.SelectedIndices[0];
         }
 
         private void SelectCall(object sender, EventArgs e)
         {
-            int index = callList.SelectedIndices[0];
+          //  int index = callList.SelectedIndices[0];
         }
     }
 }
