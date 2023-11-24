@@ -13,16 +13,22 @@ namespace mtemu
 
         private void UpdateLists_()
         {
-            foreach (KeyValuePair<WordType, ListView> listView in listViewes_) {
+            foreach (KeyValuePair<WordType, ListView> listView in listViewes_)
+            {
                 ListViewItemCollection items = listView.Value.Items;
-                for (int i = 0; i < items.Count; ++i) {
-                    if (i == currentCommand_.GetSelIndex(listView.Key)) {
-                        if (items[i].BackColor != changedColor_) {
+                for (int i = 0; i < items.Count; ++i)
+                {
+                    if (i == currentCommand_.GetSelIndex(listView.Key))
+                    {
+                        if (items[i].BackColor != changedColor_)
+                        {
                             items[i].BackColor = changedColor_;
                         }
                     }
-                    else {
-                        if (items[i].BackColor == changedColor_) {
+                    else
+                    {
+                        if (items[i].BackColor == changedColor_)
+                        {
                             items[i].BackColor = enabledColor_;
                         }
                     }
@@ -32,7 +38,7 @@ namespace mtemu
 
         void ListViewColumnWidthChanging_(object list, ColumnWidthChangingEventArgs e)
         {
-            e.NewWidth = ((ListView) list).Columns[e.ColumnIndex].Width;
+            e.NewWidth = ((ListView)list).Columns[e.ColumnIndex].Width;
             e.Cancel = true;
         }
 
@@ -41,13 +47,15 @@ namespace mtemu
             ListView listView = listViewes_[type];
 
             // If no selection
-            if (listView.SelectedIndices.Count < 1) {
+            if (listView.SelectedIndices.Count < 1)
+            {
                 return;
             }
 
             // Get text box for selected list
             int textIndex = Command.GetTextIndexByType(type);
-            if (textIndex != -1) {
+            if (textIndex != -1)
+            {
                 TextBox textBox = textBoxes_[textIndex];
 
                 // Copy value in textbox
@@ -100,10 +108,12 @@ namespace mtemu
         {
             m0CheckBox.Checked = currentCommand_.GetFlag(FlagType.M0);
             m1CheckBox.Checked = currentCommand_.GetFlag(FlagType.M1);
-            if (currentCommand_.isOffset) {
+            if (currentCommand_.isOffset)
+            {
                 offsetRadioButton.Checked = true;
             }
-            else {
+            else
+            {
                 commandRadioButton.Checked = true;
             }
         }
@@ -112,7 +122,8 @@ namespace mtemu
         {
             // Get text box for checkbox
             int textIndex = Command.GetTextIndexByFlag(flagIndex);
-            if (textIndex != -1) {
+            if (textIndex != -1)
+            {
                 TextBox textBox = textBoxes_[textIndex];
 
                 // Copy value in textbox
@@ -125,16 +136,18 @@ namespace mtemu
 
         private void M0CheckBoxCheckedChanged_(object sender, EventArgs e)
         {
-            CheckBox checkBox = (CheckBox) sender;
-            if (checkBox.Focused) {
+            CheckBox checkBox = (CheckBox)sender;
+            if (checkBox.Focused)
+            {
                 DefaultCheckBoxChanged_(FlagType.M0, checkBox.Checked);
             }
         }
 
         private void M1CheckBoxCheckedChanged_(object sender, EventArgs e)
         {
-            CheckBox checkBox = (CheckBox) sender;
-            if (checkBox.Focused) {
+            CheckBox checkBox = (CheckBox)sender;
+            if (checkBox.Focused)
+            {
                 DefaultCheckBoxChanged_(FlagType.M1, checkBox.Checked);
             }
         }

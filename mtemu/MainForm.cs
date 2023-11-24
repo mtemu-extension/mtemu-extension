@@ -25,12 +25,15 @@ namespace mtemu
         private int easterEggMask_;
 
         private string filenamePrivate_;
-        private string filename_ {
+        private string filename_
+        {
             get { return filenamePrivate_; }
-            set {
+            set
+            {
                 filenamePrivate_ = value;
                 this.Text = "mtemu";
-                if (value != null) {
+                if (value != null)
+                {
                     this.Text += " - " + filenamePrivate_;
                 }
             }
@@ -136,7 +139,8 @@ namespace mtemu
                 r14Text,
                 r15Text,
             };
-            for (int i = 0; i < Emulator.GetRegSize(); ++i) {
+            for (int i = 0; i < Emulator.GetRegSize(); ++i)
+            {
                 regLabels_[i].Text = $"R{i:d}";
             }
 
@@ -154,11 +158,13 @@ namespace mtemu
                 { WordType.PS, psListView },
                 { WordType.DEVICE, deviceListView },
             };
-            foreach (KeyValuePair<WordType, ListView> listView in listViewes_) {
+            foreach (KeyValuePair<WordType, ListView> listView in listViewes_)
+            {
                 Helpers.DoubleBuffered(listView.Value, true);
                 listView.Value.Items.Clear();
                 string[][] lists = Command.GetItems(listView.Key);
-                foreach (string[] list in lists) {
+                foreach (string[] list in lists)
+                {
                     listView.Value.Items.Add(new ListViewItem(list));
                 }
             }
@@ -177,7 +183,8 @@ namespace mtemu
             stickMemoryForm_ = true;
             memoryForm_ = new MemoryForm(this);
             Helpers.DoubleBuffered(memoryForm_.memoryListView, true);
-            for (int i = 0; i < Emulator.GetMemorySize(); ++i) {
+            for (int i = 0; i < Emulator.GetMemorySize(); ++i)
+            {
                 memoryForm_.memoryListView.Items.Add(new ListViewItem(new string[] { "", $"0x{i:X2}", "0000 0000", "0x00" }));
             }
 
@@ -185,7 +192,8 @@ namespace mtemu
             stickStackForm_ = true;
             stackForm_ = new StackForm(this);
             Helpers.DoubleBuffered(stackForm_.stackListView, true);
-            for (int i = 0; i < Emulator.GetStackSize(); ++i) {
+            for (int i = 0; i < Emulator.GetStackSize(); ++i)
+            {
                 stackForm_.stackListView.Items.Add(new ListViewItem(new string[] { "", $"0x{i:X}", "0x000" }));
             }
 
@@ -231,22 +239,29 @@ namespace mtemu
             emulator_ = new Emulator(portExtender_);
             commandList.Items.Clear();
             callsForm_.callList.Items.Clear();
-            if (filename != null || input != null) {
-                if (filename_ != null) {
-                    if (!emulator_.OpenFile(filename)) {
+            if (filename != null || input != null)
+            {
+                if (filename_ != null)
+                {
+                    if (!emulator_.OpenFile(filename))
+                    {
                         return false;
                     }
                 }
-                else if (input != null) {
-                    if (!emulator_.OpenRaw(input)) {
+                else if (input != null)
+                {
+                    if (!emulator_.OpenRaw(input))
+                    {
                         return false;
                     }
                     filename_ = null;
                 }
-                for (int i = 0; i < emulator_.CommandsCount(); ++i) {
+                for (int i = 0; i < emulator_.CommandsCount(); ++i)
+                {
                     commandList.Items.Add(CommandToItems(emulator_.GetCommand(i)));
                 }
-                for (int i = 0; i < emulator_.CallsCount(); ++i) {
+                for (int i = 0; i < emulator_.CallsCount(); ++i)
+                {
                     callsForm_.callList.Items.Add(CallToItems(emulator_.GetCall(i)));
                 }
             }
@@ -261,7 +276,8 @@ namespace mtemu
 
         private void EnableObject_(Control obj)
         {
-            if (!obj.Enabled) {
+            if (!obj.Enabled)
+            {
                 obj.Enabled = true;
                 obj.BackColor = enabledColor_;
                 obj.ForeColor = enabledTextColor_;
@@ -271,7 +287,8 @@ namespace mtemu
 
         private void DisableObject_(Control obj)
         {
-            if (obj.Enabled) {
+            if (obj.Enabled)
+            {
                 obj.Enabled = false;
                 obj.BackColor = disabledColor_;
                 obj.ForeColor = disabledTextColor_;
@@ -281,25 +298,33 @@ namespace mtemu
 
         private void DisableItems_(Control[] objs)
         {
-            if (objs.Contains(flagPanel)) {
+            if (objs.Contains(flagPanel))
+            {
                 DisableObject_(flagPanel);
             }
-            else {
+            else
+            {
                 EnableObject_(flagPanel);
             }
-            foreach (TextBox textBox in textBoxes_) {
-                if (objs.Contains(textBox)) {
+            foreach (TextBox textBox in textBoxes_)
+            {
+                if (objs.Contains(textBox))
+                {
                     DisableObject_(textBox);
                 }
-                else {
+                else
+                {
                     EnableObject_(textBox);
                 }
             }
-            foreach (KeyValuePair<WordType, ListView> listView in listViewes_) {
-                if (objs.Contains(listView.Value)) {
+            foreach (KeyValuePair<WordType, ListView> listView in listViewes_)
+            {
+                if (objs.Contains(listView.Value))
+                {
                     DisableObject_(listView.Value);
                 }
-                else {
+                else
+                {
                     EnableObject_(listView.Value);
                 }
             }
@@ -307,16 +332,17 @@ namespace mtemu
 
         private void UpdateItemsAvailability_()
         {
-            switch (currentCommand_.GetCommandView()) {
-            case ViewType.MT_COMMAND:
-                DisableItems_(new Control[] {
+            switch (currentCommand_.GetCommandView())
+            {
+                case ViewType.MT_COMMAND:
+                    DisableItems_(new Control[] {
                     ptListView,
                     deviceListView,
                     psListView,
                 });
-                break;
-            case ViewType.MEMORY_POINTER:
-                DisableItems_(new Control[] {
+                    break;
+                case ViewType.MEMORY_POINTER:
+                    DisableItems_(new Control[] {
                     flagPanel,
                     i02ListView,
                     i68ListView,
@@ -326,9 +352,9 @@ namespace mtemu
                     deviceListView,
                     psListView,
                 });
-                break;
-            case ViewType.DEVICE_POINTER:
-                DisableItems_(new Control[] {
+                    break;
+                case ViewType.DEVICE_POINTER:
+                    DisableItems_(new Control[] {
                     flagPanel,
                     i02ListView,
                     i68ListView,
@@ -338,9 +364,9 @@ namespace mtemu
 
                     psListView,
                 });
-                break;
-            case ViewType.LOAD_8BIT:
-                DisableItems_(new Control[] {
+                    break;
+                case ViewType.LOAD_8BIT:
+                    DisableItems_(new Control[] {
                     flagPanel,
                     i02ListView,
                     i68ListView,
@@ -350,9 +376,9 @@ namespace mtemu
                     ptListView,
                     deviceListView,
                 });
-                break;
-            case ViewType.LOAD_HIGH_4BIT:
-                DisableItems_(new Control[] {
+                    break;
+                case ViewType.LOAD_HIGH_4BIT:
+                    DisableItems_(new Control[] {
                     flagPanel,
                     i02ListView,
                     i68ListView,
@@ -363,9 +389,9 @@ namespace mtemu
                     ptListView,
                     deviceListView,
                 });
-                break;
-            case ViewType.LOAD_LOW_4BIT:
-                DisableItems_(new Control[] {
+                    break;
+                case ViewType.LOAD_LOW_4BIT:
+                    DisableItems_(new Control[] {
                     flagPanel,
                     i02ListView,
                     i68ListView,
@@ -376,9 +402,9 @@ namespace mtemu
                     ptListView,
                     deviceListView,
                 });
-                break;
-            case ViewType.OFFSET:
-                DisableItems_(new Control[] {
+                    break;
+                case ViewType.OFFSET:
+                    DisableItems_(new Control[] {
                     flagPanel,
                     cc3Text,
                     cc4Text,
@@ -395,7 +421,7 @@ namespace mtemu
                     psListView,
                     deviceListView,
                 });
-                break;
+                    break;
             }
         }
 
@@ -417,7 +443,8 @@ namespace mtemu
 
         private void StackFormMove_()
         {
-            if (stickStackForm_) {
+            if (stickStackForm_)
+            {
                 stackForm_.Top = Top;
                 stackForm_.Left = Right; // Left + ClientRectangle.Width;
                 stackForm_.Height = Height / 2;
@@ -426,7 +453,8 @@ namespace mtemu
 
         private void MemoryFormMove_()
         {
-            if (stickMemoryForm_) {
+            if (stickMemoryForm_)
+            {
                 memoryForm_.Top = Top + stackForm_.Height;
                 memoryForm_.Left = Right; // Left + ClientRectangle.Width;
                 memoryForm_.Height = Height / 2;
@@ -435,7 +463,8 @@ namespace mtemu
 
         private void CallsFormMove_()
         {
-            if (stickCallsForm_) {
+            if (stickCallsForm_)
+            {
                 callsForm_.Top = Top;
                 callsForm_.Left = Left - callsForm_.Width;
             }
@@ -453,10 +482,12 @@ namespace mtemu
                 && stackForm_.Top <= Top + moveDelta_
                 && Right - moveDelta_ <= stackForm_.Left
                 && stackForm_.Left <= Right + moveDelta_
-            ) {
+            )
+            {
                 stickStackForm_ = true;
             }
-            else {
+            else
+            {
                 stickStackForm_ = false;
             }
 
@@ -470,10 +501,12 @@ namespace mtemu
                 && memoryForm_.Top - memoryForm_.Height <= Top + moveDelta_
                 && Right - moveDelta_ <= memoryForm_.Left
                 && memoryForm_.Left <= Right + moveDelta_
-            ) {
+            )
+            {
                 stickMemoryForm_ = true;
             }
-            else {
+            else
+            {
                 stickMemoryForm_ = false;
             }
 
@@ -487,10 +520,12 @@ namespace mtemu
                 && callsForm_.Top <= Top + moveDelta_
                 && Left - moveDelta_ <= callsForm_.Right
                 && callsForm_.Right <= Left + moveDelta_
-            ) {
+            )
+            {
                 stickCallsForm_ = true;
             }
-            else {
+            else
+            {
                 stickCallsForm_ = false;
             }
 
@@ -511,7 +546,8 @@ namespace mtemu
 
         private void MainFormClosing_(object sender, FormClosingEventArgs e)
         {
-            if (!BeforeCloseProgram_()) {
+            if (!BeforeCloseProgram_())
+            {
                 e.Cancel = true;
             }
 
@@ -520,58 +556,74 @@ namespace mtemu
 
         private bool DefaultKeyDown_(KeyEventArgs e)
         {
-            if (e.Control && e.KeyCode == Keys.Up) {
-                if (e.Shift) {
+            if (e.Control && e.KeyCode == Keys.Up)
+            {
+                if (e.Shift)
+                {
                     MoveUpCommand_();
                 }
-                else {
+                else
+                {
                     ChangeCommand_(selected_ - 1, selectedColor_);
                 }
                 return true;
             }
-            if (e.Control && e.KeyCode == Keys.Down) {
-                if (e.Shift) {
+            if (e.Control && e.KeyCode == Keys.Down)
+            {
+                if (e.Shift)
+                {
                     MoveDownCommand_();
                 }
-                else {
+                else
+                {
                     ChangeCommand_(selected_ + 1, selectedColor_);
                 }
                 return true;
             }
-            if (e.Control && e.KeyCode == Keys.Left) {
+            if (e.Control && e.KeyCode == Keys.Left)
+            {
                 commandRadioButton.Checked = true;
                 return true;
             }
-            if (e.Control && e.KeyCode == Keys.Right) {
+            if (e.Control && e.KeyCode == Keys.Right)
+            {
                 offsetRadioButton.Checked = true;
                 return true;
             }
-            if (e.Control && e.KeyCode == Keys.Delete) {
+            if (e.Control && e.KeyCode == Keys.Delete)
+            {
                 RemoveCommand_();
                 return true;
             }
-            if (e.KeyCode == Keys.Enter) {
-                if (e.Control) {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (e.Control)
+                {
                     AddCommand_();
                 }
-                else {
+                else
+                {
                     SaveCommand_();
                 }
                 return true;
             }
-            if (e.Control && e.KeyCode == Keys.F2) {
+            if (e.Control && e.KeyCode == Keys.F2)
+            {
                 ResetEmulator();
                 return true;
             }
-            if (e.KeyCode == Keys.F7) {
+            if (e.KeyCode == Keys.F7)
+            {
                 ExecOneEmulator();
                 return true;
             }
-            if (e.KeyCode == Keys.F8) {
+            if (e.KeyCode == Keys.F8)
+            {
                 ExecOneCallEmulator();
                 return true;
             }
-            if (e.KeyCode == Keys.F9) {
+            if (e.KeyCode == Keys.F9)
+            {
                 ExecAllEmulator();
                 return true;
             }
@@ -580,21 +632,23 @@ namespace mtemu
 
         private void DefaultKeyDown_(object sender, KeyEventArgs e)
         {
-            if (DefaultKeyDown_(e)) {
+            if (DefaultKeyDown_(e))
+            {
                 e.Handled = true;
             }
         }
 
         private void DisableLeds_(object obj)
         {
-            int number = (int) obj;
+            int number = (int)obj;
             ledClicked_[number] = false;
             SetLeds_(emulator_.GetF());
         }
 
         private void LedClick_(int number)
         {
-            if (!ledClicked_[number]) {
+            if (!ledClicked_[number])
+            {
                 // Enable led
                 ledClicked_[number] = true;
                 SetLeds_(emulator_.GetF());
@@ -611,8 +665,10 @@ namespace mtemu
 
             // Check last 4 clicks
             byte[] program = EasterEgg.GetData(easterEggMask_);
-            if (program != null) {
-                if (BeforeCloseProgram_()) {
+            if (program != null)
+            {
+                if (BeforeCloseProgram_())
+                {
                     Reset_(null, program);
                     UpdateEggsCounter_();
                     easterEggMask_ = 0;

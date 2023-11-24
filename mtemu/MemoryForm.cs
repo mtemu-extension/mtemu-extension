@@ -18,7 +18,8 @@ namespace mtemu
 
         private void MemoryFormClosing_(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing) {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
                 this.Hide();
                 e.Cancel = true;
             }
@@ -31,7 +32,8 @@ namespace mtemu
 
         private void MemoryFormResizeEnd_(object sender, EventArgs e)
         {
-            if (moved_) {
+            if (moved_)
+            {
                 mainForm_.OnMemoryFormMoved();
                 moved_ = false;
             }

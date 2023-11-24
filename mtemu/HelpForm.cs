@@ -29,11 +29,13 @@ namespace mtemu
         private void CheckCode_()
         {
             var plainTextBytes = Encoding.UTF8.GetBytes(codeText.Text);
-            if (Convert.ToBase64String(plainTextBytes) == "cmFmIHBpZG9y") {
+            if (Convert.ToBase64String(plainTextBytes) == "cmFmIHBpZG9y")
+            {
                 TetrisForm tetrisForm_ = new TetrisForm();
                 tetrisForm_.ShowDialog();
             }
-            else {
+            else
+            {
                 MessageBox.Show(
                     $"Неправильный код!",
                     "Ошибка!",
@@ -51,7 +53,8 @@ namespace mtemu
 
         private void CodeTextKeyDown_(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) {
+            if (e.KeyCode == Keys.Enter)
+            {
                 CheckCode_();
                 e.Handled = true;
             }
