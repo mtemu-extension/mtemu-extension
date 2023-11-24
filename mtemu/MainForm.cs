@@ -39,6 +39,7 @@ namespace mtemu
         private int selected_;
         private int nextSelected_;
         private int selectedCall_;
+        private int commandsSize_;
 
         private bool isCallSaved_;
         private bool isCommandSaved_;
@@ -222,6 +223,7 @@ namespace mtemu
             isCallSaved_ = true;
             isCommandSaved_ = true;
             isProgramSaved_ = true;
+            commandsSize_ = 1000;
 
             saveButton.Enabled = false;
             removeButton.Enabled = false;
@@ -230,6 +232,12 @@ namespace mtemu
 
             emulator_ = new Emulator(portExtender_);
             commandList.Items.Clear();
+
+            for (int i = 0; i < commandsSize_; ++i)
+            {
+                commandList.Items.Add(new ListViewItem());
+            }
+
             callsForm_.callList.Items.Clear();
             if (filename != null || input != null) {
                 if (filename_ != null) {

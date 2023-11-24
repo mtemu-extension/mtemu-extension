@@ -40,6 +40,12 @@
             this.buttonDeleteCall = new System.Windows.Forms.Button();
             this.buttonSaveCall = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxCall = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxCodeCall = new System.Windows.Forms.TextBox();
+            this.labelName = new System.Windows.Forms.Label();
+            this.textBoxNameCall = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonEditCommand = new System.Windows.Forms.Button();
             this.buttonDeleteCommand = new System.Windows.Forms.Button();
@@ -49,6 +55,7 @@
             this.listViewCommand = new System.Windows.Forms.ListView();
             this.columnCallFunction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnCodeFunction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnNameFunction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonAuto = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
             this.buttonStep = new System.Windows.Forms.Button();
@@ -62,13 +69,6 @@
             this.cc1TextLabel = new System.Windows.Forms.Label();
             this.currentLabel = new System.Windows.Forms.Label();
             this.textBoxNameCommand = new System.Windows.Forms.TextBox();
-            this.textBoxNameCall = new System.Windows.Forms.TextBox();
-            this.labelName = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxCodeCall = new System.Windows.Forms.TextBox();
-            this.columnNameFunction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBoxCall = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -188,6 +188,78 @@
             this.panel2.Size = new System.Drawing.Size(182, 421);
             this.panel2.TabIndex = 16;
             // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Consolas", 10F);
+            this.label5.Location = new System.Drawing.Point(3, 183);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 6, 6, 3);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(172, 22);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Адрес вызова";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBoxCall
+            // 
+            this.textBoxCall.Font = new System.Drawing.Font("Consolas", 10F);
+            this.textBoxCall.Location = new System.Drawing.Point(3, 211);
+            this.textBoxCall.Margin = new System.Windows.Forms.Padding(6, 3, 0, 6);
+            this.textBoxCall.MaxLength = 8;
+            this.textBoxCall.Name = "textBoxCall";
+            this.textBoxCall.Size = new System.Drawing.Size(172, 31);
+            this.textBoxCall.TabIndex = 22;
+            this.textBoxCall.Text = "00000000";
+            this.textBoxCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxCall.WordWrap = false;
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Consolas", 10F);
+            this.label6.Location = new System.Drawing.Point(6, 111);
+            this.label6.Margin = new System.Windows.Forms.Padding(6, 6, 6, 3);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(172, 22);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "Код";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBoxCodeCall
+            // 
+            this.textBoxCodeCall.Font = new System.Drawing.Font("Consolas", 10F);
+            this.textBoxCodeCall.Location = new System.Drawing.Point(6, 139);
+            this.textBoxCodeCall.Margin = new System.Windows.Forms.Padding(6, 3, 0, 6);
+            this.textBoxCodeCall.MaxLength = 8;
+            this.textBoxCodeCall.Name = "textBoxCodeCall";
+            this.textBoxCodeCall.Size = new System.Drawing.Size(172, 31);
+            this.textBoxCodeCall.TabIndex = 20;
+            this.textBoxCodeCall.Text = "00000000";
+            this.textBoxCodeCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxCodeCall.WordWrap = false;
+            // 
+            // labelName
+            // 
+            this.labelName.Font = new System.Drawing.Font("Consolas", 10F);
+            this.labelName.Location = new System.Drawing.Point(4, 40);
+            this.labelName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 3);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(172, 22);
+            this.labelName.TabIndex = 18;
+            this.labelName.Text = "Функция";
+            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBoxNameCall
+            // 
+            this.textBoxNameCall.Font = new System.Drawing.Font("Consolas", 10F);
+            this.textBoxNameCall.Location = new System.Drawing.Point(4, 68);
+            this.textBoxNameCall.Margin = new System.Windows.Forms.Padding(6, 3, 0, 6);
+            this.textBoxNameCall.MaxLength = 8;
+            this.textBoxNameCall.Name = "textBoxNameCall";
+            this.textBoxNameCall.Size = new System.Drawing.Size(172, 31);
+            this.textBoxNameCall.TabIndex = 18;
+            this.textBoxNameCall.Text = "00000000";
+            this.textBoxNameCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxNameCall.WordWrap = false;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -279,6 +351,12 @@
             // 
             this.columnCodeFunction.Text = "Код";
             this.columnCodeFunction.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // columnNameFunction
+            // 
+            this.columnNameFunction.Text = "Функция";
+            this.columnNameFunction.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnNameFunction.Width = 100;
             // 
             // buttonAuto
             // 
@@ -442,84 +520,6 @@
             this.textBoxNameCommand.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxNameCommand.WordWrap = false;
             // 
-            // textBoxNameCall
-            // 
-            this.textBoxNameCall.Font = new System.Drawing.Font("Consolas", 10F);
-            this.textBoxNameCall.Location = new System.Drawing.Point(4, 68);
-            this.textBoxNameCall.Margin = new System.Windows.Forms.Padding(6, 3, 0, 6);
-            this.textBoxNameCall.MaxLength = 8;
-            this.textBoxNameCall.Name = "textBoxNameCall";
-            this.textBoxNameCall.Size = new System.Drawing.Size(172, 31);
-            this.textBoxNameCall.TabIndex = 18;
-            this.textBoxNameCall.Text = "00000000";
-            this.textBoxNameCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxNameCall.WordWrap = false;
-            // 
-            // labelName
-            // 
-            this.labelName.Font = new System.Drawing.Font("Consolas", 10F);
-            this.labelName.Location = new System.Drawing.Point(4, 40);
-            this.labelName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 3);
-            this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(172, 22);
-            this.labelName.TabIndex = 18;
-            this.labelName.Text = "Функция";
-            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("Consolas", 10F);
-            this.label6.Location = new System.Drawing.Point(6, 111);
-            this.label6.Margin = new System.Windows.Forms.Padding(6, 6, 6, 3);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(172, 22);
-            this.label6.TabIndex = 19;
-            this.label6.Text = "Код";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textBoxCodeCall
-            // 
-            this.textBoxCodeCall.Font = new System.Drawing.Font("Consolas", 10F);
-            this.textBoxCodeCall.Location = new System.Drawing.Point(6, 139);
-            this.textBoxCodeCall.Margin = new System.Windows.Forms.Padding(6, 3, 0, 6);
-            this.textBoxCodeCall.MaxLength = 8;
-            this.textBoxCodeCall.Name = "textBoxCodeCall";
-            this.textBoxCodeCall.Size = new System.Drawing.Size(172, 31);
-            this.textBoxCodeCall.TabIndex = 20;
-            this.textBoxCodeCall.Text = "00000000";
-            this.textBoxCodeCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxCodeCall.WordWrap = false;
-            // 
-            // columnNameFunction
-            // 
-            this.columnNameFunction.Text = "Функция";
-            this.columnNameFunction.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnNameFunction.Width = 100;
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Consolas", 10F);
-            this.label5.Location = new System.Drawing.Point(3, 183);
-            this.label5.Margin = new System.Windows.Forms.Padding(6, 6, 6, 3);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(172, 22);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "Адрес вызова";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textBoxCall
-            // 
-            this.textBoxCall.Font = new System.Drawing.Font("Consolas", 10F);
-            this.textBoxCall.Location = new System.Drawing.Point(3, 211);
-            this.textBoxCall.Margin = new System.Windows.Forms.Padding(6, 3, 0, 6);
-            this.textBoxCall.MaxLength = 8;
-            this.textBoxCall.Name = "textBoxCall";
-            this.textBoxCall.Size = new System.Drawing.Size(172, 31);
-            this.textBoxCall.TabIndex = 22;
-            this.textBoxCall.Text = "00000000";
-            this.textBoxCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxCall.WordWrap = false;
-            // 
             // CallsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -538,6 +538,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CallsForm";
             this.Text = "Программный уровень";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CallsFormClosing_);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
