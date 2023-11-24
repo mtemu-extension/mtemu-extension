@@ -214,7 +214,6 @@ namespace mtemu
         private bool Reset_(string filename = null, byte[] input = null)
         {
             LoadCommand_(Command.GetDefault());
-            LoadCall_(Call.GetDefault());
 
             filename_ = filename;
             selected_ = -1;
@@ -252,10 +251,7 @@ namespace mtemu
                     filename_ = null;
                 }
                 for (int i = 0; i < emulator_.CommandsCount(); ++i) {
-                    commandList.Items.Add(CommandToItems(emulator_.GetCommand(i)));
-                }
-                for (int i = 0; i < emulator_.CallsCount(); ++i) {
-                    callsForm_.callList.Items.Add(CallToItems(emulator_.GetCall(i)));
+                    commandList.Items[i] = CommandToItems(emulator_.GetCommand(i));
                 }
             }
 
