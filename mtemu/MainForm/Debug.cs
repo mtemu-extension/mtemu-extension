@@ -124,7 +124,6 @@ namespace mtemu
             if (emulator_.CommandsCount() > 0) {
                 ChangeCommand_(emulator_.GetNextIndex(), selectedColor_);
                 SelectPrevCommand_(emulator_.GetPrevIndex());
-                ChangeCall_(emulator_.GetCallIndex(), selectedColor_);
             }
         }
 

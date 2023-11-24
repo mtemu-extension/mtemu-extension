@@ -57,7 +57,7 @@
             this.columnCodeFunction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnNameFunction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonAuto = new System.Windows.Forms.Button();
-            this.buttonReset = new System.Windows.Forms.Button();
+            this.buttonDiscard = new System.Windows.Forms.Button();
             this.buttonStep = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -99,6 +99,7 @@
             this.callList.TabStop = false;
             this.callList.UseCompatibleStateImageBehavior = false;
             this.callList.View = System.Windows.Forms.View.Details;
+            this.callList.SelectedIndexChanged += new System.EventHandler(this.SelectCall);
             // 
             // columnAddr
             // 
@@ -143,8 +144,8 @@
             this.buttonAddCall.Size = new System.Drawing.Size(118, 36);
             this.buttonAddCall.TabIndex = 11;
             this.buttonAddCall.Text = "Добавить";
-            this.formToolTip.SetToolTip(this.buttonAddCall, "Ctrl + Enter");
             this.buttonAddCall.UseVisualStyleBackColor = true;
+            this.buttonAddCall.Click += new System.EventHandler(this.AddCall);
             // 
             // buttonDeleteCall
             // 
@@ -156,8 +157,8 @@
             this.buttonDeleteCall.TabIndex = 0;
             this.buttonDeleteCall.TabStop = false;
             this.buttonDeleteCall.Text = "Удалить";
-            this.formToolTip.SetToolTip(this.buttonDeleteCall, "Ctrl + Del");
             this.buttonDeleteCall.UseVisualStyleBackColor = true;
+            this.buttonDeleteCall.Click += new System.EventHandler(this.DeleteCall);
             // 
             // buttonSaveCall
             // 
@@ -168,8 +169,8 @@
             this.buttonSaveCall.Size = new System.Drawing.Size(118, 36);
             this.buttonSaveCall.TabIndex = 12;
             this.buttonSaveCall.Text = "Сохранить";
-            this.formToolTip.SetToolTip(this.buttonSaveCall, "Enter");
             this.buttonSaveCall.UseVisualStyleBackColor = true;
+            this.buttonSaveCall.Click += new System.EventHandler(this.SaveCall);
             // 
             // panel2
             // 
@@ -282,6 +283,7 @@
             this.buttonEditCommand.TabStop = false;
             this.buttonEditCommand.Text = "Редактировать";
             this.buttonEditCommand.UseVisualStyleBackColor = true;
+            this.buttonEditCommand.Click += new System.EventHandler(this.EditCommand);
             // 
             // buttonDeleteCommand
             // 
@@ -294,6 +296,7 @@
             this.buttonDeleteCommand.TabStop = false;
             this.buttonDeleteCommand.Text = "Удалить";
             this.buttonDeleteCommand.UseVisualStyleBackColor = true;
+            this.buttonDeleteCommand.Click += new System.EventHandler(this.DeleteCommand);
             // 
             // buttonCreateCommand
             // 
@@ -306,6 +309,7 @@
             this.buttonCreateCommand.TabStop = false;
             this.buttonCreateCommand.Text = "Создать";
             this.buttonCreateCommand.UseVisualStyleBackColor = true;
+            this.buttonCreateCommand.Click += new System.EventHandler(this.CreateCommand);
             // 
             // panel3
             // 
@@ -336,12 +340,13 @@
             this.listViewCommand.FullRowSelect = true;
             this.listViewCommand.GridLines = true;
             this.listViewCommand.HideSelection = false;
-            this.listViewCommand.Location = new System.Drawing.Point(3, 39);
+            this.listViewCommand.Location = new System.Drawing.Point(3, 44);
             this.listViewCommand.Name = "listViewCommand";
             this.listViewCommand.Size = new System.Drawing.Size(339, 550);
             this.listViewCommand.TabIndex = 0;
             this.listViewCommand.UseCompatibleStateImageBehavior = false;
             this.listViewCommand.View = System.Windows.Forms.View.Details;
+            this.listViewCommand.SelectedIndexChanged += new System.EventHandler(this.SelectCommand);
             // 
             // columnCallFunction
             // 
@@ -369,18 +374,20 @@
             this.buttonAuto.TabStop = false;
             this.buttonAuto.Text = "Авто";
             this.buttonAuto.UseVisualStyleBackColor = true;
+            this.buttonAuto.Click += new System.EventHandler(this.Auto);
             // 
-            // buttonReset
+            // buttonDiscard
             // 
-            this.buttonReset.Font = new System.Drawing.Font("Consolas", 9F);
-            this.buttonReset.Location = new System.Drawing.Point(9, 40);
-            this.buttonReset.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(166, 46);
-            this.buttonReset.TabIndex = 5;
-            this.buttonReset.TabStop = false;
-            this.buttonReset.Text = "Сброс";
-            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonDiscard.Font = new System.Drawing.Font("Consolas", 9F);
+            this.buttonDiscard.Location = new System.Drawing.Point(9, 40);
+            this.buttonDiscard.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDiscard.Name = "buttonDiscard";
+            this.buttonDiscard.Size = new System.Drawing.Size(166, 46);
+            this.buttonDiscard.TabIndex = 5;
+            this.buttonDiscard.TabStop = false;
+            this.buttonDiscard.Text = "Сброс";
+            this.buttonDiscard.UseVisualStyleBackColor = true;
+            this.buttonDiscard.Click += new System.EventHandler(this.Discard);
             // 
             // buttonStep
             // 
@@ -393,6 +400,7 @@
             this.buttonStep.TabStop = false;
             this.buttonStep.Text = "Шаг";
             this.buttonStep.UseVisualStyleBackColor = true;
+            this.buttonStep.Click += new System.EventHandler(this.Step);
             // 
             // label1
             // 
@@ -409,7 +417,7 @@
             // 
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.buttonStep);
-            this.panel1.Controls.Add(this.buttonReset);
+            this.panel1.Controls.Add(this.buttonDiscard);
             this.panel1.Controls.Add(this.buttonAuto);
             this.panel1.Location = new System.Drawing.Point(920, 491);
             this.panel1.Name = "panel1";
@@ -439,22 +447,22 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Consolas", 10F);
-            this.label3.Location = new System.Drawing.Point(766, 6);
+            this.label3.Location = new System.Drawing.Point(741, 6);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 3);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(114, 22);
+            this.label3.Size = new System.Drawing.Size(145, 22);
             this.label3.TabIndex = 17;
-            this.label3.Text = "Type";
+            this.label3.Text = "Операнд №2";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxOperand2
             // 
             this.textBoxOperand2.Font = new System.Drawing.Font("Consolas", 10F);
-            this.textBoxOperand2.Location = new System.Drawing.Point(766, 39);
+            this.textBoxOperand2.Location = new System.Drawing.Point(741, 38);
             this.textBoxOperand2.Margin = new System.Windows.Forms.Padding(6, 3, 0, 6);
             this.textBoxOperand2.MaxLength = 8;
             this.textBoxOperand2.Name = "textBoxOperand2";
-            this.textBoxOperand2.Size = new System.Drawing.Size(114, 31);
+            this.textBoxOperand2.Size = new System.Drawing.Size(145, 31);
             this.textBoxOperand2.TabIndex = 16;
             this.textBoxOperand2.Text = "00000000";
             this.textBoxOperand2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -463,22 +471,22 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Consolas", 10F);
-            this.label2.Location = new System.Drawing.Point(643, 6);
+            this.label2.Location = new System.Drawing.Point(598, 7);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 3);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 22);
+            this.label2.Size = new System.Drawing.Size(137, 22);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Type";
+            this.label2.Text = "Операнд №1";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxOperand1
             // 
             this.textBoxOperand1.Font = new System.Drawing.Font("Consolas", 10F);
-            this.textBoxOperand1.Location = new System.Drawing.Point(643, 39);
+            this.textBoxOperand1.Location = new System.Drawing.Point(598, 38);
             this.textBoxOperand1.Margin = new System.Windows.Forms.Padding(6, 3, 0, 6);
             this.textBoxOperand1.MaxLength = 8;
             this.textBoxOperand1.Name = "textBoxOperand1";
-            this.textBoxOperand1.Size = new System.Drawing.Size(114, 31);
+            this.textBoxOperand1.Size = new System.Drawing.Size(137, 31);
             this.textBoxOperand1.TabIndex = 14;
             this.textBoxOperand1.Text = "00000000";
             this.textBoxOperand1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -487,12 +495,12 @@
             // cc1TextLabel
             // 
             this.cc1TextLabel.Font = new System.Drawing.Font("Consolas", 10F);
-            this.cc1TextLabel.Location = new System.Drawing.Point(521, 6);
+            this.cc1TextLabel.Location = new System.Drawing.Point(465, 6);
             this.cc1TextLabel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 3);
             this.cc1TextLabel.Name = "cc1TextLabel";
-            this.cc1TextLabel.Size = new System.Drawing.Size(114, 22);
+            this.cc1TextLabel.Size = new System.Drawing.Size(127, 22);
             this.cc1TextLabel.TabIndex = 13;
-            this.cc1TextLabel.Text = "Type";
+            this.cc1TextLabel.Text = "Код";
             this.cc1TextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // currentLabel
@@ -510,11 +518,11 @@
             // textBoxNameCommand
             // 
             this.textBoxNameCommand.Font = new System.Drawing.Font("Consolas", 10F);
-            this.textBoxNameCommand.Location = new System.Drawing.Point(521, 39);
+            this.textBoxNameCommand.Location = new System.Drawing.Point(465, 39);
             this.textBoxNameCommand.Margin = new System.Windows.Forms.Padding(6, 3, 0, 6);
             this.textBoxNameCommand.MaxLength = 8;
             this.textBoxNameCommand.Name = "textBoxNameCommand";
-            this.textBoxNameCommand.Size = new System.Drawing.Size(114, 31);
+            this.textBoxNameCommand.Size = new System.Drawing.Size(127, 31);
             this.textBoxNameCommand.TabIndex = 10;
             this.textBoxNameCommand.Text = "00000000";
             this.textBoxNameCommand.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -566,7 +574,7 @@
         private System.Windows.Forms.ColumnHeader columnCallFunction;
         private System.Windows.Forms.ColumnHeader columnCodeFunction;
         private System.Windows.Forms.Button buttonAuto;
-        private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.Button buttonDiscard;
         private System.Windows.Forms.Button buttonStep;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
