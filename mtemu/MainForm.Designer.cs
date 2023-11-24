@@ -188,7 +188,7 @@
             this.led1 = new System.Windows.Forms.PictureBox();
             this.led2 = new System.Windows.Forms.PictureBox();
             this.deviceInfoBox = new System.Windows.Forms.TextBox();
-            this.йцукенToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputPanel.SuspendLayout();
             this.currentPanel.SuspendLayout();
             this.memoryPanel.SuspendLayout();
@@ -2201,11 +2201,9 @@
             this.deviceInfoBox.TabStop = false;
             this.deviceInfoBox.Text = "Устройство: нет подключения";
             this.deviceInfoBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // йцукенToolStripMenuItem
-            // 
-            this.йцукенToolStripMenuItem.Name = "йцукенToolStripMenuItem";
-            this.йцукенToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // MainForm
             // 
@@ -2416,7 +2414,7 @@
         private System.Windows.Forms.Panel commandsPanel;
         private System.Windows.Forms.ToolStripMenuItem programMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem йцукенToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem panelsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem debugMenuItem;
         private System.Windows.Forms.ToolStripMenuItem infoMenuItem;

@@ -42,6 +42,7 @@ namespace mtemu
         private int selected_;
         private int nextSelected_;
         private int selectedCall_;
+        private int commandsSize_;
 
         private bool isCallSaved_;
         private bool isCommandSaved_;
@@ -221,7 +222,6 @@ namespace mtemu
         private bool Reset_(string filename = null, byte[] input = null)
         {
             LoadCommand_(Command.GetDefault());
-            LoadCall_(Call.GetDefault());
 
             filename_ = filename;
             selected_ = -1;
@@ -230,6 +230,7 @@ namespace mtemu
             isCallSaved_ = true;
             isCommandSaved_ = true;
             isProgramSaved_ = true;
+            commandsSize_ = 1000;
 
             saveButton.Enabled = false;
             removeButton.Enabled = false;
@@ -238,6 +239,12 @@ namespace mtemu
 
             emulator_ = new Emulator(portExtender_);
             commandList.Items.Clear();
+
+            for (int i = 0; i < commandsSize_; ++i)
+            {
+                commandList.Items.Add(new ListViewItem());
+            }
+
             callsForm_.callList.Items.Clear();
             if (filename != null || input != null)
             {
@@ -256,13 +263,8 @@ namespace mtemu
                     }
                     filename_ = null;
                 }
-                for (int i = 0; i < emulator_.CommandsCount(); ++i)
-                {
-                    commandList.Items.Add(CommandToItems(emulator_.GetCommand(i)));
-                }
-                for (int i = 0; i < emulator_.CallsCount(); ++i)
-                {
-                    callsForm_.callList.Items.Add(CallToItems(emulator_.GetCall(i)));
+                for (int i = 0; i < emulator_.CommandsCount(); ++i) {
+                    commandList.Items[i] = CommandToItems(emulator_.GetCommand(i));
                 }
             }
 
