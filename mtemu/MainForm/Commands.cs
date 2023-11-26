@@ -49,11 +49,13 @@ namespace mtemu
 
         private void SelectCommand_(int index, Color selectedColor)
         {
-            if (0 <= selected_ && selected_ < emulator_.CommandsCount()) {
+            if (0 <= selected_ && selected_ < commandList.Items.Count)
+            {
                 commandList.Items[selected_].BackColor = enabledColor_;
             }
             selected_ = index;
-            if (0 <= selected_ && selected_ < emulator_.CommandsCount()) {
+            if (0 <= selected_ && selected_ < commandList.Items.Count)
+            {
                 commandList.Items[selected_].BackColor = selectedColor;
                 commandList.EnsureVisible(selected_);
             }
@@ -61,7 +63,8 @@ namespace mtemu
 
         private void ChangeCommand_(int newSelected, Color color, bool force = false)
         {
-            if (newSelected < -1 || emulator_.CommandsCount() <= newSelected) {
+            if (newSelected < -1 || commandList.Items.Count <= newSelected)
+            {
                 return;
             }
 
@@ -124,13 +127,16 @@ namespace mtemu
 
         private void SelectPrevCommand_(int index)
         {
-            if (0 <= nextSelected_ && nextSelected_ < emulator_.CommandsCount()) {
-                if (commandList.Items[nextSelected_].BackColor == nextSelectedColor_) {
+            if (0 <= nextSelected_ && nextSelected_ < commandList.Items.Count)
+            {
+                if (commandList.Items[nextSelected_].BackColor == nextSelectedColor_)
+                {
                     commandList.Items[nextSelected_].BackColor = enabledColor_;
                 }
             }
             nextSelected_ = index;
-            if (0 <= nextSelected_ && nextSelected_ < emulator_.CommandsCount()) {
+            if (0 <= nextSelected_ && nextSelected_ < commandList.Items.Count)
+            {
                 commandList.Items[nextSelected_].BackColor = nextSelectedColor_;
             }
         }
@@ -191,8 +197,10 @@ namespace mtemu
                 IncorrectCommandDialog();
                 return;
             }
+            commandList.Items.Insert(index, CommandToItems(emulator_.GetCommand(index)));
 
-            for (int i = 0; i < emulator_.CommandsCount(); ++i) {
+            for (int i = index; i < emulator_.CommandsCount(); ++i)
+            {
                 commandList.Items[i] = CommandToItems(emulator_.GetCommand(i));
             }
             ChangeCommand_(index, selectedColor_);
@@ -222,21 +230,26 @@ namespace mtemu
 
         private void RemoveCommand_()
         {
-            if (0 <= selected_ && selected_ < emulator_.CommandsCount()) {
+            if (0 <= selected_ && selected_ < commandList.Items.Count)
+            {
                 isProgramSaved_ = false;
 
                 int number = selected_;
                 emulator_.RemoveCommand(number);
-                for (int i = 0; i < emulator_.CommandsCount(); ++i)
+                commandList.Items.RemoveAt(number);
+                if (number >= commandList.Items.Count)
                 {
-                    commandList.Items[i] = CommandToItems(emulator_.GetCommand(i));
+                    number = commandList.Items.Count - 1;
                 }
-                commandList.Items[emulator_.CommandsCount()] = new ListViewItem();
 
-                if (number >= emulator_.CommandsCount())
+                if (number != -1)
                 {
-                    number = emulator_.CommandsCount() - 1;
+                    for (int i = number; i < emulator_.CommandsCount(); ++i)
+                    {
+                        commandList.Items[i] = CommandToItems(emulator_.GetCommand(i));
+                    }
                 }
+
                 ChangeCommand_(number, selectedColor_, true);
             }
         }
@@ -263,7 +276,8 @@ namespace mtemu
         private void MoveDownCommand_()
         {
             int index = selected_;
-            if (index >= emulator_.CommandsCount()) {
+            if (index == commandList.Items.Count - 1)
+            {
                 return;
             }
             emulator_.MoveCommandDown(index);
