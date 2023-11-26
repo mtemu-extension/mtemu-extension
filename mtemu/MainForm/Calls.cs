@@ -8,45 +8,54 @@ namespace mtemu
     {
         private ListViewItem CallToItems_(Call call)
         {
-            return new ListViewItem(new string[] { "", call.GetCode().ToString(), call.GetArg0().ToString(), call.GetArg1().ToString() });
+            
+            return new ListViewItem(new string[] { "", Helpers.IntToBinary(call.GetCode(), 8), Helpers.IntToBinary(call.GetArg0(), 8), Helpers.IntToBinary(call.GetArg1(), 8) });
         }
 
         private ListViewItem CallMapToItems_(KeyValuePair<int, System.Tuple<string, int>> callMap)
         {
-            return new ListViewItem(new string[] { callMap.Value.Item1, callMap.Key.ToString(), callMap.Value.Item2.ToString() });
+            return new ListViewItem(new string[] { Helpers.IntToHex(callMap.Value.Item2, 4), Helpers.IntToBinary(callMap.Key, 8), callMap.Value.Item1 });
         }
 
-        public void EditCall(int code, int arg0, int arg1)
+        public List<ListViewItem> EditCall(int code, int arg0, int arg1)
         {
-            Call call = new Call(code, arg0, arg1);
-            emulator_.UpdateCall(selectedCall_, call);
+            int index = selectedCall_ + 1;
+            emulator_.UpdateCall(index, code, arg0, arg1);
+            return GetItemsCalls();
         }
 
 
-        public void AddCall(int code, int arg0, int arg1)
+        public List<ListViewItem> AddCall(int code, int arg0, int arg1)
         {
-            Call call = new Call(code, arg0, arg1);
-            emulator_.AddCall(selectedCall_, call);
+            int index = selectedCall_ + 1;
+            emulator_.AddCall(index, code, arg0, arg1);
+            return GetItemsCalls();
         }
 
-        public void RemoveCall()
+        public List<ListViewItem> RemoveCall()
         {
-            emulator_.RemoveCall(selectedCall_);
+            int index = selectedCall_ + 1;
+            emulator_.RemoveCall(index);
+            return GetItemsCalls();
         }
 
-        public void AddMapCall(int code, string name, int addr)
+        public List<ListViewItem> AddMapCall(int code, string name, int addr)
         {
-            emulator_.AddMapCall(1, "", 1);
+            emulator_.AddMapCall(code, name, addr);
+            return GetItemsMapCall();
+
         }
 
-        public void RemoveMapCall()
+        public List<ListViewItem> RemoveMapCall(int code)
         {
-            emulator_.RemoveMapCall(1);
+            emulator_.RemoveMapCall(code);
+            return GetItemsMapCall();
         }
 
-        public void EditMapCall()
+        public List<ListViewItem> EditMapCall(int code, string name, int addr)
         {
-            emulator_.UpdateMapCall(1, "", 1);
+            emulator_.UpdateMapCall(code, name, addr);
+            return GetItemsMapCall();
         }
 
         public List<ListViewItem> GetItemsMapCall()
@@ -68,6 +77,11 @@ namespace mtemu
                 listViewItems.Add(CallToItems_(emulator_.GetCall(i)));
             }
             return listViewItems;
+        }
+
+        public void ChangeSelectCall(int selected)
+        {
+            if (selected < emulator_.CallsCount()) selectedCall_ = selected;
         }
     }
 }

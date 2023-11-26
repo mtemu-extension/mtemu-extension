@@ -201,7 +201,7 @@ namespace mtemu
             // Form with program editing
             stickCallsForm_ = false;
             callsForm_ = new CallsForm(this);
-            Helpers.DoubleBuffered(callsForm_.callList, true);
+            Helpers.DoubleBuffered(callsForm_.listViewCall, true);
 
             // Form with scheme of ALU
             schemeForm_ = new SchemeForm();
