@@ -24,16 +24,28 @@ namespace mtemu
                 textBoxOperand1,
                 textBoxOperand2
             };
-
-
-
         }
 
-        public void Reset()
+        private void Reset_()
+        {
+            listViewCall.Items.Clear();
+            listViewCallMap.Items.Clear();
+        }
+
+        public void Init()
         {
             foreach (ListViewItem item in mainForm_.GetItemsMapCall())
             {
                 listViewCallMap.Items.Add(item);
+            }
+
+
+            int addr = 0;
+            foreach (ListViewItem item in mainForm_.GetItemsCalls())
+            {
+                item.SubItems[0].Text = addr.ToString();
+                ++addr;
+                listViewCall.Items.Add(item);
             }
         }
 
@@ -43,6 +55,7 @@ namespace mtemu
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 this.Hide();
+                Reset_();
                 e.Cancel = true;
             }
         }

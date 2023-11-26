@@ -242,7 +242,6 @@ namespace mtemu
                 commandList.Items.Add(new ListViewItem());
             }
 
-            callsForm_.Reset();
             if (filename != null || input != null)
             {
                 if (filename_ != null)
