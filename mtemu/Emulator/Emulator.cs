@@ -1220,7 +1220,7 @@ namespace mtemu
 
         public bool RemoveMapCall(int code)
         {
-            if (mapCalls_.ContainsKey(code)) return false;
+            if (!mapCalls_.ContainsKey(code)) return false;
             foreach (Call item in calls_)
             {
                 if (item.GetCode() == code) return false;
