@@ -190,11 +190,6 @@ namespace mtemu
             return true;
         }
 
-        public Command LastCommand()
-        {
-            return commands_.Last();
-        }
-
         public void RemoveCommand(int index)
         {
             commands_.RemoveAt(index);
@@ -1121,6 +1116,8 @@ namespace mtemu
         public bool AddCall(int index, int code, int arg0, int arg1)
         {
             if (!mapCalls_.ContainsKey(code)) return false;
+            if (arg0 > 0xff || arg1 > 0xff) return false;
+
             Call call = new Call(code, arg0, arg1);
             if (mapJumps_.ContainsKey(code))
             {
@@ -1150,14 +1147,17 @@ namespace mtemu
         public bool AddCall(int index, int code, int arg0, int arg1, bool altCommandAddress, JumpType flag)
         {
             if (!mapCalls_.ContainsKey(code)) return false;
+            if (arg0 > 0xff || arg1 > 0xff) return false;
+
             Call call = new Call(code, arg0, arg1, altCommandAddress, flag);
             calls_.Insert(index, call);
             return true;
         }
         public void UpdateCall(int index, int code, int arg0, int arg1)
         {
-            RemoveCall(index);
+            if (arg0 > 0xff || arg1 > 0xff) return;
             AddCall(index, code, arg0, arg1);
+            RemoveCall(index + 1);
         }
 
         public void RemoveCall(int index)
