@@ -43,20 +43,20 @@ namespace mtemu
 
         public List<ListViewItem> AddMapCall(int code, string name, int addr)
         {
-            emulator_.AddMapCall(code, name, addr);
+            if (!emulator_.AddMapCall(code, name, addr)) IncorrectCallMapDialog();
             return GetItemsMapCall();
 
         }
 
         public List<ListViewItem> RemoveMapCall(int code)
         {
-            emulator_.RemoveMapCall(code);
+            if (!emulator_.RemoveMapCall(code)) IncorrectCallMapDialog();
             return GetItemsMapCall();
         }
 
         public List<ListViewItem> EditMapCall(int code, string name, int addr)
         {
-            emulator_.UpdateMapCall(code, name, addr);
+            if (!emulator_.UpdateMapCall(code, name, addr)) IncorrectCallMapDialog();
             return GetItemsMapCall();
         }
 
@@ -87,6 +87,17 @@ namespace mtemu
         }
 
         private void IncorrectCallDialog()
+        {
+            MessageBox.Show(
+                "В одной из ячеек введено неправильное значение!",
+                "Неправильная команда!",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error,
+                MessageBoxDefaultButton.Button1
+            );
+        }
+
+        private void IncorrectCallMapDialog()
         {
             MessageBox.Show(
                 "В одной из ячеек введено неправильное значение!",
