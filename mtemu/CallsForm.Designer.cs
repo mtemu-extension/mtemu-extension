@@ -255,11 +255,11 @@
             this.textBoxNameMapCall.Font = new System.Drawing.Font("Consolas", 10F);
             this.textBoxNameMapCall.Location = new System.Drawing.Point(4, 68);
             this.textBoxNameMapCall.Margin = new System.Windows.Forms.Padding(6, 3, 0, 6);
-            this.textBoxNameMapCall.MaxLength = 15;
+            this.textBoxNameMapCall.MaxLength = 8;
             this.textBoxNameMapCall.Name = "textBoxNameMapCall";
             this.textBoxNameMapCall.Size = new System.Drawing.Size(172, 31);
             this.textBoxNameMapCall.TabIndex = 18;
-            this.textBoxNameMapCall.Text = "ADD 1 2";
+            this.textBoxNameMapCall.Text = "XXXXXXXX";
             this.textBoxNameMapCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxNameMapCall.WordWrap = false;
             // 
