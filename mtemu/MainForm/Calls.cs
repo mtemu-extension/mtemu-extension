@@ -19,7 +19,7 @@ namespace mtemu
 
         public List<ListViewItem> EditCall(int code, int arg0, int arg1)
         {
-            int index = selectedCall_ + 1;
+            int index = selectedCall_;
             emulator_.UpdateCall(index, code, arg0, arg1);
             return GetItemsCalls();
         }
@@ -27,14 +27,14 @@ namespace mtemu
 
         public List<ListViewItem> AddCall(int code, int arg0, int arg1)
         {
-            int index = selectedCall_ + 1;
+            int index = selectedCall_;
             emulator_.AddCall(index, code, arg0, arg1);
             return GetItemsCalls();
         }
 
         public List<ListViewItem> RemoveCall()
         {
-            int index = selectedCall_ + 1;
+            int index = selectedCall_;
             emulator_.RemoveCall(index);
             return GetItemsCalls();
         }

@@ -112,12 +112,12 @@ namespace mtemu
 
         private void Discard(object sender, EventArgs e)
         {
-
+            mainForm_.ResetEmulator();
         }
 
         private void Auto(object sender, EventArgs e)
         {
-
+            mainForm_.ExecAllEmulator();
         }
 
         private void Step(object sender, EventArgs e)

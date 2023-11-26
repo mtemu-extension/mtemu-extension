@@ -226,7 +226,7 @@ namespace mtemu
             filename_ = filename;
             selected_ = -1;
             nextSelected_ = -1;
-            selectedCall_ = -1;
+            selectedCall_ = 0;
             isCallSaved_ = true;
             isCommandSaved_ = true;
             isProgramSaved_ = true;
