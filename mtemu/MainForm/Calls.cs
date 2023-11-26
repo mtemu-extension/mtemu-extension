@@ -19,7 +19,7 @@ namespace mtemu
 
         public List<ListViewItem> EditCall(int code, int arg0, int arg1)
         {
-            emulator_.UpdateCall(selectedCall_, code, arg0, arg1);
+            if (!emulator_.UpdateCall(selectedCall_, code, arg0, arg1)) IncorrectCallDialog();
             return GetItemsCalls();
         }
 
@@ -27,7 +27,7 @@ namespace mtemu
         public List<ListViewItem> AddCall(int code, int arg0, int arg1)
         {
             ++selectedCall_;
-            emulator_.AddCall(selectedCall_, code, arg0, arg1);
+            if (!emulator_.AddCall(selectedCall_, code, arg0, arg1)) IncorrectCallDialog();
             return GetItemsCalls();
         }
 
@@ -84,6 +84,17 @@ namespace mtemu
         public void ChangeSelectCall(int selected)
         {
             if (selected < emulator_.CallsCount()) selectedCall_ = selected;
+        }
+
+        private void IncorrectCallDialog()
+        {
+            MessageBox.Show(
+                "В одной из ячеек введено неправильное значение!",
+                "Неправильная команда!",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error,
+                MessageBoxDefaultButton.Button1
+            );
         }
     }
 }
