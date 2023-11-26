@@ -44,13 +44,11 @@ namespace mtemu
         private int selectedCall_;
         private int commandsSize_;
 
-        private bool isCallSaved_;
         private bool isCommandSaved_;
         private bool isProgramSaved_;
 
         private Emulator emulator_;
         private Command currentCommand_;
-        private Call currentCall_;
         private PortExtender portExtender_;
 
         private Label[] textLabels_;
@@ -226,8 +224,7 @@ namespace mtemu
             filename_ = filename;
             selected_ = -1;
             nextSelected_ = -1;
-            selectedCall_ = 0;
-            isCallSaved_ = true;
+            selectedCall_ = -1;
             isCommandSaved_ = true;
             isProgramSaved_ = true;
             commandsSize_ = 1000;
