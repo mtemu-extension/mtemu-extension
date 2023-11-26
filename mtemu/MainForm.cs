@@ -44,13 +44,11 @@ namespace mtemu
         private int selectedCall_;
         private int commandsSize_;
 
-        private bool isCallSaved_;
         private bool isCommandSaved_;
         private bool isProgramSaved_;
 
         private Emulator emulator_;
         private Command currentCommand_;
-        private Call currentCall_;
         private PortExtender portExtender_;
 
         private Label[] textLabels_;
@@ -201,7 +199,7 @@ namespace mtemu
             // Form with program editing
             stickCallsForm_ = false;
             callsForm_ = new CallsForm(this);
-            Helpers.DoubleBuffered(callsForm_.callList, true);
+            Helpers.DoubleBuffered(callsForm_.listViewCall, true);
 
             // Form with scheme of ALU
             schemeForm_ = new SchemeForm();
@@ -227,7 +225,6 @@ namespace mtemu
             selected_ = -1;
             nextSelected_ = -1;
             selectedCall_ = -1;
-            isCallSaved_ = true;
             isCommandSaved_ = true;
             isProgramSaved_ = true;
             commandsSize_ = 1000;
@@ -245,7 +242,6 @@ namespace mtemu
                 commandList.Items.Add(new ListViewItem());
             }
 
-            callsForm_.callList.Items.Clear();
             if (filename != null || input != null)
             {
                 if (filename_ != null)

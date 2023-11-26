@@ -147,6 +147,7 @@ namespace mtemu
             if (!callsForm_.Visible)
             {
                 callsForm_.Show(this);
+                callsForm_.Init();
                 CallsFormMove_();
             }
         }
