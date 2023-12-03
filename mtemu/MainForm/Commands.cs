@@ -49,12 +49,12 @@ namespace mtemu
 
         private void SelectCommand_(int index, Color selectedColor)
         {
-            if (0 <= selected_ && selected_ < commandList.Items.Count)
+            if (0 <= selected_ && selected_ < emulator_.CommandsCount())
             {
                 commandList.Items[selected_].BackColor = enabledColor_;
             }
             selected_ = index;
-            if (0 <= selected_ && selected_ < commandList.Items.Count)
+            if (0 <= selected_ && selected_ < emulator_.CommandsCount())
             {
                 commandList.Items[selected_].BackColor = selectedColor;
                 commandList.EnsureVisible(selected_);
@@ -63,7 +63,7 @@ namespace mtemu
 
         private void ChangeCommand_(int newSelected, Color color, bool force = false)
         {
-            if (newSelected < -1 || commandList.Items.Count <= newSelected)
+            if (newSelected < -1 || emulator_.CommandsCount() - Emulator.callCommands.Count <= newSelected)
             {
                 return;
             }
@@ -113,7 +113,7 @@ namespace mtemu
                     {
                         upButton.Enabled = true;
                     }
-                    if (newSelected == commandList.Items.Count - 1)
+                    if (newSelected == emulator_.CommandsCount() - 1)
                     {
                         downButton.Enabled = false;
                     }
@@ -127,7 +127,7 @@ namespace mtemu
 
         private void SelectPrevCommand_(int index)
         {
-            if (0 <= nextSelected_ && nextSelected_ < commandList.Items.Count)
+            if (0 <= nextSelected_ && nextSelected_ < emulator_.CommandsCount())
             {
                 if (commandList.Items[nextSelected_].BackColor == nextSelectedColor_)
                 {
@@ -135,7 +135,7 @@ namespace mtemu
                 }
             }
             nextSelected_ = index;
-            if (0 <= nextSelected_ && nextSelected_ < commandList.Items.Count)
+            if (0 <= nextSelected_ && nextSelected_ < emulator_.CommandsCount())
             {
                 commandList.Items[nextSelected_].BackColor = nextSelectedColor_;
             }
@@ -197,7 +197,6 @@ namespace mtemu
                 IncorrectCommandDialog();
                 return;
             }
-            commandList.Items.Insert(index, CommandToItems(emulator_.GetCommand(index)));
 
             for (int i = index; i < emulator_.CommandsCount(); ++i)
             {
@@ -220,6 +219,7 @@ namespace mtemu
                     return;
                 }
 
+
                 for (int i = number; i < emulator_.CommandsCount(); ++i)
                 {
                     commandList.Items[i] = CommandToItems(emulator_.GetCommand(i));
@@ -230,24 +230,21 @@ namespace mtemu
 
         private void RemoveCommand_()
         {
-            if (0 <= selected_ && selected_ < commandList.Items.Count)
+            if (0 <= selected_ && selected_ < emulator_.CommandsCount())
             {
                 isProgramSaved_ = false;
                 int number = selected_;
                 emulator_.RemoveCommand(number);
-                commandList.Items.RemoveAt(number);
-                if (number >= commandList.Items.Count)
+                if (number >= emulator_.CommandsCount() - Emulator.callCommands.Count)
                 {
-                    number = commandList.Items.Count - 1;
+                    number = emulator_.CommandsCount() - Emulator.callCommands.Count - 1;
                 }
 
-                if (number != -1)
+                for (int i = 0; i < emulator_.CommandsCount(); ++i)
                 {
-                    for (int i = number; i < emulator_.CommandsCount(); ++i)
-                    {
-                        commandList.Items[i] = CommandToItems(emulator_.GetCommand(i));
-                    }
+                    commandList.Items[i] = CommandToItems(emulator_.GetCommand(i));
                 }
+                commandList.Items[emulator_.CommandsCount()] = new ListViewItem();
 
                 ChangeCommand_(number, selectedColor_, true);
             }
@@ -275,7 +272,7 @@ namespace mtemu
         private void MoveDownCommand_()
         {
             int index = selected_;
-            if (index == commandList.Items.Count - 1)
+            if (index >= emulator_.CommandsCount())
             {
                 return;
             }
