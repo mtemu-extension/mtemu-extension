@@ -378,8 +378,6 @@ namespace mtemu
                     i02ListView,
                     i68ListView,
                     cc4Text,
-                    cc9Text,
-
                     ptListView,
                     deviceListView,
                 });
@@ -391,8 +389,6 @@ namespace mtemu
                     i68ListView,
                     cc4Text,
                     cc8Text,
-                    cc9Text,
-
                     ptListView,
                     deviceListView,
                 });
@@ -404,8 +400,6 @@ namespace mtemu
                     i68ListView,
                     cc4Text,
                     cc7Text,
-                    cc9Text,
-
                     ptListView,
                     deviceListView,
                 });
