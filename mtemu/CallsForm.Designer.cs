@@ -348,6 +348,7 @@
             this.listViewCallMap.TabIndex = 0;
             this.listViewCallMap.UseCompatibleStateImageBehavior = false;
             this.listViewCallMap.View = System.Windows.Forms.View.Details;
+            this.listViewCallMap.SelectedIndexChanged += new System.EventHandler(this.SelectCallMap);
             // 
             // columnCallFunction
             // 

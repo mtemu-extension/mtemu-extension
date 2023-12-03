@@ -180,7 +180,25 @@ namespace mtemu
         {
             if (listViewCall.SelectedIndices.Count != 0)
             {
+                if (listViewCall.SelectedIndices[0] >= listViewCall.Items.Count) return;
                 mainForm_.ChangeSelectCall(listViewCall.SelectedIndices[0]);
+                textBoxNameCall.Text = listViewCall.SelectedItems[0].SubItems[1].Text;
+                textBoxOperand1.Text = listViewCall.SelectedItems[0].SubItems[2].Text;
+                textBoxOperand2.Text = listViewCall.SelectedItems[0].SubItems[3].Text;
+            }
+        }
+
+        private void SelectCallMap(object sender, EventArgs e)
+        {
+            if (listViewCallMap.SelectedIndices.Count != 0)
+            {
+                if (listViewCallMap.SelectedIndices[0] >= listViewCallMap.Items.Count) return;
+                textBoxAddrMapCall.Text = listViewCallMap.SelectedItems[0].SubItems[0].Text;
+                textBoxCodeMapCall.Text = listViewCallMap.SelectedItems[0].SubItems[1].Text;
+                textBoxNameMapCall.Text = listViewCallMap.SelectedItems[0].SubItems[2].Text;
+                textBoxNameCall.Text = listViewCallMap.SelectedItems[0].SubItems[1].Text;
+                textBoxOperand1.Text = Helpers.IntToBinary(0, 8);
+                textBoxOperand2.Text = Helpers.IntToBinary(0, 8);
             }
         }
     }
