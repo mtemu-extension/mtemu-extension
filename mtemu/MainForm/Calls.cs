@@ -8,8 +8,17 @@ namespace mtemu
     {
         private ListViewItem CallToItems_(Call call)
         {
-            
-            return new ListViewItem(new string[] { "", Helpers.IntToBinary(call.GetCode(), 8), Helpers.IntToBinary(call.GetArg0(), 8), Helpers.IntToBinary(call.GetArg1(), 8) });
+            return new ListViewItem(new string[] { "", GetNameCallByCode(call.GetCode()), Helpers.IntToBinary(call.GetArg0(), 8), Helpers.IntToBinary(call.GetArg1(), 8) });
+        }
+
+        public string GetNameCallByCode(int code)
+        {
+            return emulator_.GetNameByCode(code);
+        }
+
+        public int GetCodeCallByName(string name)
+        {
+            return emulator_.GetCodeByName(name);
         }
 
         private ListViewItem CallMapToItems_(KeyValuePair<int, System.Tuple<string, int>> callMap)
