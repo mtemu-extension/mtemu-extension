@@ -192,7 +192,7 @@ namespace mtemu
             isCommandSaved_ = true;
 
             int index = selected_ + 1;
-            if (!emulator_.AddCommand(index, new Command(currentCommand_)))
+            if (!emulator_.AddUserCommand(index, new Command(currentCommand_)))
             {
                 IncorrectCommandDialog();
                 return;
@@ -233,7 +233,6 @@ namespace mtemu
             if (0 <= selected_ && selected_ < emulator_.CommandsCount())
             {
                 isProgramSaved_ = false;
-
                 int number = selected_;
                 emulator_.RemoveCommand(number);
                 if (number >= emulator_.CommandsCount() - Emulator.callCommands.Count)
