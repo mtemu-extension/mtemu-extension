@@ -8,8 +8,17 @@ namespace mtemu
     {
         private ListViewItem CallToItems_(Call call)
         {
-            
-            return new ListViewItem(new string[] { "", Helpers.IntToBinary(call.GetCode(), 8), Helpers.IntToBinary(call.GetArg0(), 8), Helpers.IntToBinary(call.GetArg1(), 8) });
+            return new ListViewItem(new string[] { "", GetNameCallByCode(call.GetCode()), Helpers.IntToBinary(call.GetArg0(), 8), Helpers.IntToBinary(call.GetArg1(), 8) });
+        }
+
+        public string GetNameCallByCode(int code)
+        {
+            return emulator_.GetNameByCode(code);
+        }
+
+        public int GetCodeCallByName(string name)
+        {
+            return emulator_.GetCodeByName(name);
         }
 
         private ListViewItem CallMapToItems_(KeyValuePair<int, System.Tuple<string, int>> callMap)
@@ -19,13 +28,18 @@ namespace mtemu
 
         public List<ListViewItem> EditCall(int code, int arg0, int arg1)
         {
-            if (!emulator_.UpdateCall(selectedCall_, code, arg0, arg1)) IncorrectCallDialog();
+            if (selectedCall_ >= emulator_.CallsCount()) selectedCall_ = emulator_.CallsCount() - 1;
+            if (selectedCall_ >= 0)
+            {
+                if (!emulator_.UpdateCall(selectedCall_, code, arg0, arg1)) IncorrectCallDialog();
+            }  
             return GetItemsCalls();
         }
 
 
         public List<ListViewItem> AddCall(int code, int arg0, int arg1)
         {
+            if (selectedCall_ >= emulator_.CallsCount()) selectedCall_ = emulator_.CallsCount() - 1;
             ++selectedCall_;
             if (!emulator_.AddCall(selectedCall_, code, arg0, arg1)) IncorrectCallDialog();
             return GetItemsCalls();
