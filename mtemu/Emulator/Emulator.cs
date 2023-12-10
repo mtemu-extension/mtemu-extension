@@ -10,6 +10,8 @@ namespace mtemu
     {
         private PortExtender portExtender_;
 
+       private bool isAdmin_;
+
         private int prevPc_;
         private int pc_;        // Pointer command
         private int newCall_;
@@ -57,6 +59,7 @@ namespace mtemu
 
         public void Reset()
         {
+            isAdmin_ = false;
             prevPc_ = -1;
             pc_ = -1;
             newCall_ = -1;
@@ -96,10 +99,16 @@ namespace mtemu
 
         public Emulator(PortExtender portExtender)
         {
+            isAdmin_ = false;
             InitCommands();
             InitCalls();
             portExtender_ = portExtender;
             Reset();
+        }
+
+        public void SetAdmin(bool isAdmin)
+        {
+            isAdmin_ = isAdmin;
         }
 
         private void InitCalls()
@@ -187,8 +196,8 @@ namespace mtemu
                 command.SetNumber(GetOffset_(index));
             }
 
-            if (command.GetNumber() >= userProgramSize) return false;
-            if (GetLastCommandBeforOffset(index + 1) - index - 1 + command.GetNumber() >= userProgramSize) return false;
+            if (isAdmin_ || command.GetNumber() >= userProgramSize) return false;
+            if (isAdmin_ ||  GetLastCommandBeforOffset(index + 1) - index - 1 + command.GetNumber() >= userProgramSize) return false;
 
             commands_.Insert(index, command);
             UpdateOffsets_(index + 1);
@@ -227,8 +236,8 @@ namespace mtemu
                 command.SetNumber(GetOffset_(index));
             }
 
-            if (command.GetNumber() >= userProgramSize) return false;
-            if (GetLastCommandBeforOffset(index + 1) - index - 1 + command.GetNumber() >= userProgramSize) return false;
+            if (isAdmin_ || command.GetNumber() >= userProgramSize) return false;
+            if (isAdmin_ ||  GetLastCommandBeforOffset(index + 1) - index - 1 + command.GetNumber() >= userProgramSize) return false;
 
             commands_[index] = command;
             UpdateOffsets_(index + 1);
@@ -238,7 +247,7 @@ namespace mtemu
         public bool RemoveCommand(int index)
         {
             Command command = GetCommand(index);
-            if (command.GetNumber() >= userProgramSize || command.isOffset && command.GetNumber() >= userProgramSize - 1) return false;
+            if (isAdmin_ ||  command.GetNumber() >= userProgramSize || command.isOffset && command.GetNumber() >= userProgramSize - 1) return false;
             commands_.RemoveAt(index);
             UpdateOffsets_(index);
             return false;
