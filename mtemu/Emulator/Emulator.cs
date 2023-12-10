@@ -12,6 +12,7 @@ namespace mtemu
 
         private int prevPc_;
         private int pc_;        // Pointer command
+        private int newCall_;
         private int callIndex_;
         private bool end_;
 
@@ -58,6 +59,7 @@ namespace mtemu
         {
             prevPc_ = -1;
             pc_ = -1;
+            newCall_ = -1;
             callIndex_ = -1;
             end_ = false;
 
@@ -414,6 +416,7 @@ namespace mtemu
                     if (calls_.Count > 0 && callIndex_ <= calls_.Count)
                     {
                         pc_ = GetAddrByCode(call.GetCode());
+                        newCall_ = -1;
                         return;
                     }
                     end_ = true;
@@ -987,17 +990,20 @@ namespace mtemu
             {
                 if (calls_.Count > 0)
                 {
-                    Call call = calls_[0];
-                    memory_[0] = call.GetArg0();
-                    memory_[1] = call.GetArg1();
-                    pc_ = GetAddrByCode(call.GetCode());
-                    callIndex_ = 1;
+                    callIndex_ = 0;
+                    pc_ = GetAddrByCode(calls_[callIndex_].GetCode());
                 }
                 else
                 {
                     pc_ = 0;
                 }
-                return ResultCode.Ok;
+               return ResultCode.Ok;
+            }
+            else if (newCall_ == -1 && callIndex_ <= calls_.Count() - 1 && calls_.Count > 0)
+            {
+                newCall_ = 0;
+                memory_[0] = calls_[callIndex_].GetArg0();
+                memory_[1] = calls_[callIndex_].GetArg1();
             }
 
             if (!Current_().Check())
