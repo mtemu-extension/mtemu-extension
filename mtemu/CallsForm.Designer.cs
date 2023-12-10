@@ -102,7 +102,7 @@
             this.listViewCall.UseCompatibleStateImageBehavior = false;
             this.listViewCall.View = System.Windows.Forms.View.Details;
             this.listViewCall.SelectedIndexChanged += new System.EventHandler(this.SelectCall);
-            this.listViewCall.DoubleClick += new System.EventHandler(this.func);
+            this.listViewCall.DoubleClick += new System.EventHandler(this.DoubleClickCall);
             // 
             // Debug
             // 

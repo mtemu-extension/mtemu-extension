@@ -202,13 +202,34 @@ namespace mtemu
             }
         }
 
-        private void func(object sender, EventArgs e)
+        private void DoubleClickCall(object sender, EventArgs e)
         {
             if (listViewCall.SelectedIndices.Count != 0)
             {
                 if (listViewCall.SelectedIndices[0] >= listViewCall.Items.Count) return;
-                if (listViewCall.SelectedItems[0].SubItems[0].Text == "-") listViewCall.SelectedItems[0].SubItems[0].Text = "+";
-                else if (listViewCall.SelectedItems[0].SubItems[0].Text == "+") listViewCall.SelectedItems[0].SubItems[0].Text = "-";
+                if (listViewCall.SelectedItems[0].SubItems[0].Text == "-")
+                {
+                    listViewCall.Items.Clear();
+                    int addr = 0;
+                    foreach (ListViewItem item in mainForm_.EditCall(Helpers.BinaryToInt(textBoxNameCall.Text), Helpers.BinaryToInt(textBoxOperand1.Text), Helpers.BinaryToInt(textBoxOperand2.Text), true))
+                    {
+                        item.SubItems[1].Text = addr.ToString();
+                        ++addr;
+                        listViewCall.Items.Add(item);
+                    }
+
+                }
+                else if (listViewCall.SelectedItems[0].SubItems[0].Text == "+")
+                {
+                    listViewCall.Items.Clear();
+                    int addr = 0;
+                    foreach (ListViewItem item in mainForm_.EditCall(Helpers.BinaryToInt(textBoxNameCall.Text), Helpers.BinaryToInt(textBoxOperand1.Text), Helpers.BinaryToInt(textBoxOperand2.Text), false))
+                    {
+                        item.SubItems[1].Text = addr.ToString();
+                        ++addr;
+                        listViewCall.Items.Add(item);
+                    }
+                }
             }
         }
     }
