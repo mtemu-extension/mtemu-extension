@@ -31,7 +31,7 @@ namespace mtemu
             if (selectedCall_ >= emulator_.CallsCount()) selectedCall_ = emulator_.CallsCount() - 1;
             if (selectedCall_ >= 0)
             {
-                if (!emulator_.UpdateCall(selectedCall_, code, arg0, arg1)) IncorrectCallDialog();
+                if (!emulator_.UpdateCall(selectedCall_, code, arg0, arg1, false)) IncorrectCallDialog();
             }  
             return GetItemsCalls();
         }
@@ -41,7 +41,7 @@ namespace mtemu
         {
             if (selectedCall_ >= emulator_.CallsCount()) selectedCall_ = emulator_.CallsCount() - 1;
             ++selectedCall_;
-            if (!emulator_.AddCall(selectedCall_, code, arg0, arg1)) IncorrectCallDialog();
+            if (!emulator_.AddCall(selectedCall_, code, arg0, arg1, false)) IncorrectCallDialog();
             return GetItemsCalls();
         }
 

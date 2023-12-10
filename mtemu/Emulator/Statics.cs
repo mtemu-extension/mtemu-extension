@@ -152,12 +152,12 @@ namespace mtemu
 
         public static Call GetDefault()
         {
-            return new Call(0, 0, 0);
+            return new Call(0, 0, 0, false);
         }
 
         public static int CallSize()
         {
-            return 3 * sizeof(UInt16) + sizeof(byte) + sizeof(bool);
+            return 3 * sizeof(UInt16) + sizeof(byte) + 2 * sizeof(bool);
         }
     }
 

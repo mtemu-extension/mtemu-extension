@@ -1060,12 +1060,16 @@ namespace mtemu
         {
             for (int i = 0; i < maxAutoCount_; ++i)
             {
-                ResultCode rc = ExecOne();
+                ResultCode rc = ExecOneCall();
                 if (rc != ResultCode.Ok)
                 {
                     return rc;
                 }
                 if (callIndex_ >= calls_.Count || prevPc_ == pc_)
+                {
+                    return ResultCode.Ok;
+                }
+                if (calls_[callIndex_].GetStopPoint())
                 {
                     return ResultCode.Ok;
                 }
@@ -1206,30 +1210,30 @@ namespace mtemu
             return calls_[index];
         }
 
-        public bool AddCall(int index, int code, int arg0, int arg1)
+        public bool AddCall(int index, int code, int arg0, int arg1, bool stopPoint)
         {
             if (!mapCalls_.ContainsKey(code)) return false;
             if (arg0 > 0xff || arg1 > 0xff) return false;
 
-            Call call = new Call(code, arg0, arg1);
+            Call call = new Call(code, arg0, arg1, stopPoint);
             if (mapJumps_.ContainsKey(code))
             {
                 switch (code)
                 {
                     case 0:
-                        call = new Call(code, arg0, arg1, true, JumpType.JMP);
+                        call = new Call(code, arg0, arg1, stopPoint, true, JumpType.JMP);
                         break;
                     case 1:
-                        call = new Call(code, arg0, arg1, true, JumpType.JC4);
+                        call = new Call(code, arg0, arg1, stopPoint, true, JumpType.JC4);
                         break;
                     case 2:
-                        call = new Call(code, arg0, arg1, true, JumpType.JZ);
+                        call = new Call(code, arg0, arg1, stopPoint, true, JumpType.JZ);
                         break;
                     case 3:
-                        call = new Call(code, arg0, arg1, true, JumpType.JSNC4);
+                        call = new Call(code, arg0, arg1, stopPoint, true, JumpType.JSNC4);
                         break;
                     case 4:
-                        call = new Call(code, arg0, arg1, true, JumpType.JNZ);
+                        call = new Call(code, arg0, arg1, stopPoint, true, JumpType.JNZ);
                         break;
                 }
             }
@@ -1237,19 +1241,19 @@ namespace mtemu
             return true;
         }
 
-        public bool AddCall(int index, int code, int arg0, int arg1, bool altCommandAddress, JumpType flag)
+        public bool AddCall(int index, int code, int arg0, int arg1, bool stopPoint, bool altCommandAddress, JumpType flag)
         {
             if (!mapCalls_.ContainsKey(code)) return false;
             if (arg0 > 0xff || arg1 > 0xff) return false;
 
-            Call call = new Call(code, arg0, arg1, altCommandAddress, flag);
+            Call call = new Call(code, arg0, arg1, stopPoint, altCommandAddress, flag);
             calls_.Insert(index, call);
             return true;
         }
-        public bool UpdateCall(int index, int code, int arg0, int arg1)
+        public bool UpdateCall(int index, int code, int arg0, int arg1, bool stopPoint)
         {
             if (arg0 > 0xff || arg1 > 0xff) return false;
-            if (!AddCall(index, code, arg0, arg1)) return false;
+            if (!AddCall(index, code, arg0, arg1, stopPoint)) return false;
             RemoveCall(index + 1);
             return true;
         }
@@ -1380,6 +1384,7 @@ namespace mtemu
                 output[seek++] = (byte)callsArr[i].GetArg0();
                 output[seek++] = (byte)(callsArr[i].GetArg1() >> 8);
                 output[seek++] = (byte)callsArr[i].GetArg1();
+                output[seek++] = (byte)(callsArr[i].GetStopPoint() ? 1 : 0);
                 output[seek++] = (byte)(callsArr[i].GetAltCommandAddress() ? 1 : 0);
                 output[seek++] = (byte)callsArr[i].GetFlag();
             }
@@ -1451,9 +1456,10 @@ namespace mtemu
                 int code = (input[seek++] << 8) + input[seek++];
                 int arg0 = (input[seek++] << 8) + input[seek++];
                 int arg1 = (input[seek++] << 8) + input[seek++];
+                bool stopPoint = (input[seek++] == 1);
                 bool altCommandAddress = (input[seek++] == 1);
                 JumpType flag = (JumpType)Enum.Parse(typeof(JumpType), input[seek++].ToString());
-                AddCall(i, code, arg0, arg1, altCommandAddress, flag);
+                AddCall(i, code, arg0, arg1, stopPoint, altCommandAddress, flag);
             }
 
             int commandsCount = 0;

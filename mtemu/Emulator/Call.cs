@@ -6,22 +6,25 @@
         int arg0_;
         int arg1_;
         bool altCommandAddress_;
+        bool stopPoint_;
         JumpType flag_;
 
-        public Call(int code, int arg0, int arg1, bool altCommandAddress, JumpType flag)
+        public Call(int code, int arg0, int arg1, bool stopPoint, bool altCommandAddress, JumpType flag)
         {
             code_ = code;
             arg0_ = arg0;
             arg1_ = arg1;
             altCommandAddress_ = altCommandAddress;
             flag_ = flag;
+            stopPoint_ = stopPoint;
         }
 
-        public Call(int code, int arg0, int arg1)
+        public Call(int code, int arg0, int arg1, bool stopPoint)
         {
             code_ = code;
             arg0_ = arg0;
             arg1_ = arg1;
+            stopPoint_ = stopPoint;
             altCommandAddress_ = false;
             flag_ = JumpType.Unknown;
         }
@@ -32,6 +35,7 @@
             arg0_ = other.arg0_;
             arg1_ = other.arg1_;
             altCommandAddress_ = other.altCommandAddress_;
+            stopPoint_ = other.stopPoint_;
             flag_ = other.flag_;
         }
 
@@ -73,6 +77,16 @@
         public void SetAltCommandAddress(bool alt_command_address)
         {
             altCommandAddress_ = alt_command_address;
+        }
+
+        public bool GetStopPoint()
+        {
+            return stopPoint_;
+        }
+
+        public void SetStopPoint(bool stopPoint)
+        {
+            stopPoint_ = stopPoint;
         }
 
         public JumpType GetFlag()
