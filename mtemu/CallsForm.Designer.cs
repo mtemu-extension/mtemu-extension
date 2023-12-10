@@ -30,7 +30,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CallsForm));
             this.listViewCall = new System.Windows.Forms.ListView();
-            this.columnAddr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Debug = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnNameCommand = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnOperand1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnOperand2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -69,6 +69,7 @@
             this.cc1TextLabel = new System.Windows.Forms.Label();
             this.currentLabel = new System.Windows.Forms.Label();
             this.textBoxNameCall = new System.Windows.Forms.TextBox();
+            this.columnAddr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -80,6 +81,7 @@
             this.listViewCall.AutoArrange = false;
             this.listViewCall.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listViewCall.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Debug,
             this.columnAddr,
             this.columnNameCommand,
             this.columnOperand1,
@@ -100,29 +102,30 @@
             this.listViewCall.UseCompatibleStateImageBehavior = false;
             this.listViewCall.View = System.Windows.Forms.View.Details;
             this.listViewCall.SelectedIndexChanged += new System.EventHandler(this.SelectCall);
+            this.listViewCall.DoubleClick += new System.EventHandler(this.DoubleClickCall);
             // 
-            // columnAddr
+            // Debug
             // 
-            this.columnAddr.Text = "Адрес";
-            this.columnAddr.Width = 80;
+            this.Debug.Text = "Стоп";
+            this.Debug.Width = 40;
             // 
             // columnNameCommand
             // 
             this.columnNameCommand.Text = "Команда";
             this.columnNameCommand.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnNameCommand.Width = 100;
+            this.columnNameCommand.Width = 80;
             // 
             // columnOperand1
             // 
             this.columnOperand1.Text = "Операнд 1";
             this.columnOperand1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnOperand1.Width = 100;
+            this.columnOperand1.Width = 90;
             // 
             // columnOperand2
             // 
             this.columnOperand2.Text = "Операнд 2";
             this.columnOperand2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnOperand2.Width = 100;
+            this.columnOperand2.Width = 90;
             // 
             // listLabel
             // 
@@ -535,6 +538,11 @@
             this.textBoxNameCall.WordWrap = false;
             this.textBoxNameCall.TextChanged += new System.EventHandler(this.ChangeTextCodeCall);
             // 
+            // columnAddr
+            // 
+            this.columnAddr.Text = "Адрес";
+            this.columnAddr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // CallsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -597,7 +605,7 @@
         private System.Windows.Forms.Button buttonSaveCall;
         private System.Windows.Forms.TextBox textBoxNameCall;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ColumnHeader columnAddr;
+        private System.Windows.Forms.ColumnHeader Debug;
         private System.Windows.Forms.ColumnHeader columnNameCommand;
         private System.Windows.Forms.ColumnHeader columnOperand1;
         private System.Windows.Forms.ColumnHeader columnOperand2;
@@ -608,5 +616,6 @@
         private System.Windows.Forms.ColumnHeader columnNameFunction;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxAddrMapCall;
+        private System.Windows.Forms.ColumnHeader columnAddr;
     }
 }

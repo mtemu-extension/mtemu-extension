@@ -177,5 +177,10 @@ namespace mtemu
                 MakeHighNibble(highNibble) |
                 MakeLowNibble(lowNibble));
         }
+
+        public static string StopPointToString(bool stopPoint)
+        {
+            return stopPoint ? "+" : "-";
+        }
     }
 }
