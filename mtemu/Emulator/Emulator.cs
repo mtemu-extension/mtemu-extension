@@ -413,9 +413,9 @@ namespace mtemu
                         ++callIndex_;
                     }
 
-                    if (calls_.Count > 0 && callIndex_ <= calls_.Count)
+                    if (calls_.Count > 0 && callIndex_ < calls_.Count)
                     {
-                        pc_ = GetAddrByCode(call.GetCode());
+                        pc_ = GetAddrByCode(calls_[callIndex_].GetCode());
                         newCall_ = -1;
                         return;
                     }
