@@ -184,7 +184,7 @@ namespace mtemu
             Helpers.DoubleBuffered(memoryForm_.memoryListView, true);
             for (int i = 0; i < Emulator.GetMemorySize(); ++i)
             {
-                memoryForm_.memoryListView.Items.Add(new ListViewItem(new string[] { "", $"0x{i:X4}", "0000 0000", "0x00" }));
+                memoryForm_.memoryListView.Items.Add(new ListViewItem(new string[] { "", $"0x{i:X2}", "0000 0000", "0x00" }));
             }
 
             // Stack debug form
