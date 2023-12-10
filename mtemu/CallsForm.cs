@@ -43,7 +43,7 @@ namespace mtemu
             int addr = 0;
             foreach (ListViewItem item in mainForm_.GetItemsCalls())
             {
-                item.SubItems[0].Text = addr.ToString();
+                item.SubItems[1].Text = addr.ToString();
                 ++addr;
                 listViewCall.Items.Add(item);
             }
@@ -66,7 +66,7 @@ namespace mtemu
             int addr = 0;
             foreach (ListViewItem item in mainForm_.RemoveCall())
             {
-                item.SubItems[0].Text = addr.ToString();
+                item.SubItems[1].Text = addr.ToString();
                 ++addr;
                 listViewCall.Items.Add(item);
             }
@@ -78,7 +78,7 @@ namespace mtemu
             int addr = 0;
             foreach (ListViewItem item in mainForm_.AddCall(Helpers.BinaryToInt(textBoxNameCall.Text), Helpers.BinaryToInt(textBoxOperand1.Text), Helpers.BinaryToInt(textBoxOperand2.Text)))
             {
-                item.SubItems[0].Text = addr.ToString();
+                item.SubItems[1].Text = addr.ToString();
                 ++addr;
                 listViewCall.Items.Add(item);
             }
@@ -90,7 +90,7 @@ namespace mtemu
             int addr = 0;
             foreach (ListViewItem item in mainForm_.EditCall(Helpers.BinaryToInt(textBoxNameCall.Text), Helpers.BinaryToInt(textBoxOperand1.Text), Helpers.BinaryToInt(textBoxOperand2.Text)))
             {
-                item.SubItems[0].Text = addr.ToString();
+                item.SubItems[1].Text = addr.ToString();
                 ++addr;
                 listViewCall.Items.Add(item);
             }
@@ -182,9 +182,9 @@ namespace mtemu
             {
                 if (listViewCall.SelectedIndices[0] >= listViewCall.Items.Count) return;
                 mainForm_.ChangeSelectCall(listViewCall.SelectedIndices[0]);
-                textBoxNameCall.Text = Helpers.IntToBinary(mainForm_.GetCodeCallByName(listViewCall.SelectedItems[0].SubItems[1].Text), 8);
-                textBoxOperand1.Text = listViewCall.SelectedItems[0].SubItems[2].Text;
-                textBoxOperand2.Text = listViewCall.SelectedItems[0].SubItems[3].Text;
+                textBoxNameCall.Text = Helpers.IntToBinary(mainForm_.GetCodeCallByName(listViewCall.SelectedItems[0].SubItems[2].Text), 8);
+                textBoxOperand1.Text = listViewCall.SelectedItems[0].SubItems[3].Text;
+                textBoxOperand2.Text = listViewCall.SelectedItems[0].SubItems[4].Text;
             }
         }
 
@@ -199,6 +199,16 @@ namespace mtemu
                 textBoxNameCall.Text = listViewCallMap.SelectedItems[0].SubItems[1].Text;
                 textBoxOperand1.Text = Helpers.IntToBinary(0, 8);
                 textBoxOperand2.Text = Helpers.IntToBinary(0, 8);
+            }
+        }
+
+        private void func(object sender, EventArgs e)
+        {
+            if (listViewCall.SelectedIndices.Count != 0)
+            {
+                if (listViewCall.SelectedIndices[0] >= listViewCall.Items.Count) return;
+                if (listViewCall.SelectedItems[0].SubItems[0].Text == "-") listViewCall.SelectedItems[0].SubItems[0].Text = "+";
+                else if (listViewCall.SelectedItems[0].SubItems[0].Text == "+") listViewCall.SelectedItems[0].SubItems[0].Text = "-";
             }
         }
     }
