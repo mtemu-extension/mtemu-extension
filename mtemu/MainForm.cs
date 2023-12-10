@@ -628,6 +628,10 @@ namespace mtemu
                 ExecAllEmulator();
                 return true;
             }
+            if (e.Control && e.KeyCode == Keys.B)
+            {
+                emulator_.SetAdmin(!emulator_.GetAdmin());
+            }
             return false;
         }
 

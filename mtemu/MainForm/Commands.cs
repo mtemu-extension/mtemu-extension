@@ -63,7 +63,11 @@ namespace mtemu
 
         private void ChangeCommand_(int newSelected, Color color, bool force = false)
         {
-            if (newSelected < -1 || emulator_.CommandsCount() - Emulator.callCommands.Count <= newSelected)
+            if (newSelected < -1 || emulator_.CommandsCount() <= newSelected)
+            {
+                return;
+            }
+            if (!emulator_.GetAdmin() && emulator_.CommandsCount() - Emulator.callCommands.Count <= newSelected)
             {
                 return;
             }
@@ -235,9 +239,12 @@ namespace mtemu
                 isProgramSaved_ = false;
                 int number = selected_;
                 emulator_.RemoveCommand(number);
-                if (number >= emulator_.CommandsCount() - Emulator.callCommands.Count)
+                if (!emulator_.GetAdmin() && number >= emulator_.CommandsCount() - Emulator.callCommands.Count)
                 {
                     number = emulator_.CommandsCount() - Emulator.callCommands.Count - 1;
+                } else if (emulator_.GetAdmin() && number >= emulator_.CommandsCount())
+                {
+                    number = emulator_.CommandsCount() - 1;
                 }
 
                 for (int i = 0; i < emulator_.CommandsCount(); ++i)

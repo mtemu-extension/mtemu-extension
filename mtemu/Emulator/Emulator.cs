@@ -111,6 +111,11 @@ namespace mtemu
             isAdmin_ = isAdmin;
         }
 
+        public bool GetAdmin()
+        {
+            return isAdmin_;
+        }
+
         private void InitCalls()
         {
             mapCalls_ = mapJumps_;
@@ -196,8 +201,8 @@ namespace mtemu
                 command.SetNumber(GetOffset_(index));
             }
 
-            if (isAdmin_ || command.GetNumber() >= userProgramSize) return false;
-            if (isAdmin_ ||  GetLastCommandBeforOffset(index + 1) - index - 1 + command.GetNumber() >= userProgramSize) return false;
+            if (!isAdmin_ && command.GetNumber() >= userProgramSize) return false;
+            if (!isAdmin_ && GetLastCommandBeforOffset(index + 1) - index - 1 + command.GetNumber() >= userProgramSize) return false;
 
             commands_.Insert(index, command);
             UpdateOffsets_(index + 1);
@@ -236,8 +241,8 @@ namespace mtemu
                 command.SetNumber(GetOffset_(index));
             }
 
-            if (isAdmin_ || command.GetNumber() >= userProgramSize) return false;
-            if (isAdmin_ ||  GetLastCommandBeforOffset(index + 1) - index - 1 + command.GetNumber() >= userProgramSize) return false;
+            if (!isAdmin_ && command.GetNumber() >= userProgramSize) return false;
+            if (!isAdmin_ &&  GetLastCommandBeforOffset(index + 1) - index - 1 + command.GetNumber() >= userProgramSize) return false;
 
             commands_[index] = command;
             UpdateOffsets_(index + 1);
@@ -247,7 +252,7 @@ namespace mtemu
         public bool RemoveCommand(int index)
         {
             Command command = GetCommand(index);
-            if (isAdmin_ ||  command.GetNumber() >= userProgramSize || command.isOffset && command.GetNumber() >= userProgramSize - 1) return false;
+            if (!isAdmin_ &&  (command.GetNumber() >= userProgramSize || command.isOffset && command.GetNumber() >= userProgramSize - 1)) return false;
             commands_.RemoveAt(index);
             UpdateOffsets_(index);
             return false;
