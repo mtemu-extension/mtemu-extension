@@ -431,7 +431,7 @@ namespace mtemu
         private static int userProgramSize = 0xf00;
         private static int stackSize_ = 1 << 4;
         private static int regSize_ = 1 << 4;
-        private static int memSize_ = 1 << 8;
+        private static int memSize_ = 1 << 16;
         private static int maxAutoCount_ = 1 << 14;
 
         public enum JumpResult
