@@ -9,6 +9,8 @@ namespace mtemu
     {
         MainForm mainForm_;
         TextBox[] textBoxes_;
+        Color colorExecCall;
+        Color colorCall;
 
         public CallsForm(MainForm mainForm)
         {
@@ -24,6 +26,8 @@ namespace mtemu
                 textBoxOperand1,
                 textBoxOperand2
             };
+            colorExecCall = Color.Bisque;
+            colorCall = Color.White;
         }
 
         private void Reset_()
@@ -125,17 +129,30 @@ namespace mtemu
 
         private void Discard(object sender, EventArgs e)
         {
+            changeCall(mainForm_.getCallIndex(), colorCall);
             mainForm_.ResetEmulator();
+            changeCall(mainForm_.getCallIndex(), colorExecCall);
         }
 
         private void Auto(object sender, EventArgs e)
         {
+            changeCall(mainForm_.getCallIndex(), colorCall);
             mainForm_.ExecAllEmulator();
+            changeCall(mainForm_.getCallIndex(), colorExecCall);
+
         }
 
         private void Step(object sender, EventArgs e)
         {
+            changeCall(mainForm_.getCallIndex(), colorCall);
             mainForm_.ExecOneCall();
+            changeCall(mainForm_.getCallIndex(), colorExecCall);
+        }
+
+        private void changeCall(int index, Color color)
+        {
+            if (index >= listViewCall.Items.Count || index < 0) return;
+            listViewCall.Items[index].BackColor = color;
         }
 
         private bool DefaultTextChanged_(int index, int coder = 0)
