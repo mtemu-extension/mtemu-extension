@@ -121,5 +121,10 @@ namespace mtemu
                 MessageBoxDefaultButton.Button1
             );
         }
+
+        public int getCallIndex()
+        {
+            return emulator_.getCallIndex();
+        }
     }
 }

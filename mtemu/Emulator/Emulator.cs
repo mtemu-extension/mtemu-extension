@@ -116,6 +116,11 @@ namespace mtemu
             return isAdmin_;
         }
 
+        public int getCallIndex()
+        {
+            return callIndex_;
+        }
+
         private void InitCalls()
         {
             mapCalls_ = mapJumps_;
