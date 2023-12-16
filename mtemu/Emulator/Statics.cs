@@ -479,9 +479,9 @@ namespace mtemu
             {9, new Tuple<string, int>("I2C LOAD", 0xf1e) },
             {10, new Tuple<string, int>("GPIO LOAD", 0xf22) },
             {11, new Tuple<string, int>("UART READ", 0xf26) },
-            {12, new Tuple<string, int>("SPI READ", 0xf2a) },
-            {13, new Tuple<string, int>("I2C READ", 0xf2e) },
-            {14, new Tuple<string, int>("GPIO READ", 0xf32) },
+            {12, new Tuple<string, int>("SPI READ", 0xf28) },
+            {13, new Tuple<string, int>("I2C READ", 0xf2a) },
+            {14, new Tuple<string, int>("GPIO READ", 0xf2c) },
         };
 
         public static List<Command> callCommands => new List<Command>
@@ -636,12 +636,6 @@ namespace mtemu
                 true
                 ),
             new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0001", "0000", "1011", "0000", "0000", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0001", "0010", "1101", "0000", "0001", "0000"}
-                ),
-            new Command(
                 new string[] {"0000", "0000", "0000", "0010", "0001", "1000", "1011", "0000", "0001", "0000"}
                 ),
             new Command(
@@ -649,14 +643,8 @@ namespace mtemu
                 ),
             // SPI READ
             new Command(
-                new string[] {"1111", "0010", "1010", "0000", "0000", "0000", "0000", "0000", "0000", "0000"},
+                new string[] {"1111", "0010", "1000", "0000", "0000", "0000", "0000", "0000", "0000", "0000"},
                 true
-                ),
-             new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0001", "0000", "1011", "0000", "0000", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0001", "0010", "1101", "0000", "0001", "0000"}
                 ),
             new Command(
                 new string[] {"0000", "0000", "0000", "0010", "0001", "1000", "1011", "0001", "0001", "0000"}
@@ -666,14 +654,8 @@ namespace mtemu
                 ),
             // I2C READ
             new Command(
-                new string[] {"1111", "0010", "1110", "0000", "0000", "0000", "0000", "0000", "0000", "0000"},
+                new string[] {"1111", "0010", "1010", "0000", "0000", "0000", "0000", "0000", "0000", "0000"},
                 true
-                ),
-             new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0001", "0000", "1011", "0000", "0000", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0001", "0010", "1101", "0000", "0001", "0000"}
                 ),
             new Command(
                 new string[] {"0000", "0000", "0000", "0010", "0001", "1000", "1011", "0010", "0001", "0000"}
@@ -683,14 +665,8 @@ namespace mtemu
                 ),
             // GPIO READ
             new Command(
-                new string[] {"1111", "0011", "0010", "0000", "0000", "0000", "0000", "0000", "0000", "0000"},
+                new string[] {"1111", "0010", "1100", "0000", "0000", "0000", "0000", "0000", "0000", "0000"},
                 true
-                ),
-             new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0001", "0000", "1011", "0000", "0000", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0001", "0010", "1101", "0000", "0001", "0000"}
                 ),
             new Command(
                 new string[] {"0000", "0000", "0000", "0010", "0001", "1000", "1011", "0011", "0001", "0000"}
