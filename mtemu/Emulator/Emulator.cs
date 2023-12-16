@@ -202,7 +202,7 @@ namespace mtemu
             }
 
             if (!isAdmin_ && command.GetNumber() >= userProgramSize) return false;
-            if (!isAdmin_ && GetLastCommandBeforOffset(index + 1) - index - 1 + command.GetNumber() >= userProgramSize) return false;
+            if (!isAdmin_ && (GetLastCommandBeforOffset(index) - index - 1 + command.GetNumber() >= userProgramSize)) return false;
 
             commands_.Insert(index, command);
             UpdateOffsets_(index + 1);
