@@ -630,7 +630,15 @@ namespace mtemu
             }
             if (e.Control && e.KeyCode == Keys.B)
             {
-                emulator_.SetAdmin(!emulator_.GetAdmin());
+                if (emulator_.GetAdmin())
+                {
+                    emulator_.SetAdmin(false);
+                    selected_ = -1;
+                } 
+                else
+                {
+                    emulator_.SetAdmin(true);
+                }
             }
             return false;
         }
