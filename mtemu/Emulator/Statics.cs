@@ -472,96 +472,18 @@ namespace mtemu
             {2, new Tuple<string, int>("JZ", 0xffd) },
             {3, new Tuple<string, int>("JNC", 0xffe) },
             {4, new Tuple<string, int>("JNZ", 0xfff) },
-            {5, new Tuple<string, int>("A + B", 0xf00) },
-            {6, new Tuple<string, int>("A - B", 0xf0b) },
-            {7, new Tuple<string, int>("UART LOAD", 0xf16) },
-            {8, new Tuple<string, int>("SPI LOAD", 0xf1a) },
-            {9, new Tuple<string, int>("I2C LOAD", 0xf1e) },
-            {10, new Tuple<string, int>("GPIO LOAD", 0xf22) },
-            {11, new Tuple<string, int>("UART READ", 0xf26) },
-            {12, new Tuple<string, int>("SPI READ", 0xf28) },
-            {13, new Tuple<string, int>("I2C READ", 0xf2a) },
-            {14, new Tuple<string, int>("GPIO READ", 0xf2c) },
+            {5, new Tuple<string, int>("UART LOAD", 0xf16) },
+            {6, new Tuple<string, int>("SPI LOAD", 0xf1a) },
+            {7, new Tuple<string, int>("I2C LOAD", 0xf1e) },
+            {8, new Tuple<string, int>("GPIO LOAD", 0xf22) },
+            {9, new Tuple<string, int>("UART READ", 0xf26) },
+            {10, new Tuple<string, int>("SPI READ", 0xf28) },
+            {11, new Tuple<string, int>("I2C READ", 0xf2a) },
+            {12, new Tuple<string, int>("GPIO READ", 0xf2c) },
         };
 
         public static List<Command> callCommands => new List<Command>
         {
-            // A + B
-            new Command(
-                new string[] {"1111", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000"},
-                true
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0000", "1011", "0000", "0000", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0010", "1101", "0001", "0000", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0000", "1011", "0000", "0001", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0010", "1101", "0011", "0010", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0001", "0000", "0010", "0000", "0000"}
-                ),
-            new Command(
-                new string[] {"1111", "0000", "0111", "1111", "0011", "0010", "0000", "0000", "0100", "0000"}
-                ),
-            new Command(
-                new string[] {"1111", "0000", "1000", "0001", "0000", "0001", "0000", "0011", "0001", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0001", "1000", "0011", "0001", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0011", "0010", "0000", "0000", "0101", "0000"}
-                ),
-             new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0000", "1011", "0000", "0010", "0000"}
-                ),
-             new Command(
-                new string[] {"0000", "0000", "0000", "0011", "0000", "0010", "1100", "0101", "0100", "0000"}
-                ),
-             // A - B
-            new Command(
-                new string[] {"1111", "0000", "1011", "0000", "0000", "0000", "0000", "0000", "0000", "0000"},
-                true
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0000", "1011", "0000", "0000", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0010", "1101", "0001", "0000", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0000", "1011", "0000", "0001", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0010", "1101", "0011", "0010", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0001", "1010", "0000", "0010", "0000"}
-                ),
-            new Command(
-                new string[] {"1111", "0001", "0010", "1111", "0011", "0010", "0000", "0000", "0100", "0000"}
-                ),
-            new Command(
-                new string[] {"1111", "0001", "0011", "0001", "0000", "0001", "0010", "0001", "0011", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0001", "1010", "0001", "0011", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0011", "0010", "0000", "0000", "0101", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0010", "0000", "0000", "1011", "0000", "0010", "0000"}
-                ),
-            new Command(
-                new string[] {"0000", "0000", "0000", "0011", "0000", "0010", "1100", "0101", "0100", "0000"}
-                ),
             // UART LOAD
             new Command(
                 new string[] {"1111", "0001", "0110", "0000", "0000", "0000", "0000", "0000", "0000", "0000"},
