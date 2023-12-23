@@ -23,7 +23,7 @@ namespace mtemu
 
         private ListViewItem CallMapToItems_(KeyValuePair<int, System.Tuple<string, int>> callMap)
         {
-            return new ListViewItem(new string[] { Helpers.IntToHex(callMap.Value.Item2, 4), Helpers.IntToBinary(callMap.Key, 8), callMap.Value.Item1 });
+            return new ListViewItem(new string[] { Helpers.IntToHex(callMap.Value.Item2, 3), Helpers.IntToBinary(callMap.Key, 8), callMap.Value.Item1 });
         }
 
         public List<ListViewItem> EditCall(int code, int arg0, int arg1, bool is_set=false)

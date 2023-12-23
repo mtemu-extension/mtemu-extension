@@ -149,6 +149,7 @@ namespace mtemu
         public static int ADDRESS_SIZE_BIT = 12;
         public static int ARG_SIZE_BIT = 8;
         public static int NAME_MAX_SIZE = 16;
+        public static string STOP_SYMBOL = "\u25CF";
 
         public static Call GetDefault()
         {

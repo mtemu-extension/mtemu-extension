@@ -224,7 +224,7 @@ namespace mtemu
             if (listViewCall.SelectedIndices.Count != 0)
             {
                 if (listViewCall.SelectedIndices[0] >= listViewCall.Items.Count) return;
-                if (listViewCall.SelectedItems[0].SubItems[0].Text == "-")
+                if (listViewCall.SelectedItems[0].SubItems[0].Text == " ")
                 {
                     listViewCall.Items.Clear();
                     int addr = 0;
@@ -236,7 +236,7 @@ namespace mtemu
                     }
 
                 }
-                else if (listViewCall.SelectedItems[0].SubItems[0].Text == "+")
+                else if (listViewCall.SelectedItems[0].SubItems[0].Text == Call.STOP_SYMBOL)
                 {
                     listViewCall.Items.Clear();
                     int addr = 0;

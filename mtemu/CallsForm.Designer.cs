@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CallsForm));
             this.listViewCall = new System.Windows.Forms.ListView();
             this.Debug = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnAddr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnNameCommand = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnOperand1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnOperand2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -69,7 +70,6 @@
             this.cc1TextLabel = new System.Windows.Forms.Label();
             this.currentLabel = new System.Windows.Forms.Label();
             this.textBoxNameCall = new System.Windows.Forms.TextBox();
-            this.columnAddr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -106,8 +106,13 @@
             // 
             // Debug
             // 
-            this.Debug.Text = "Стоп";
-            this.Debug.Width = 40;
+            this.Debug.Text = "";
+            this.Debug.Width = 20;
+            // 
+            // columnAddr
+            // 
+            this.columnAddr.Text = "Адрес";
+            this.columnAddr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // columnNameCommand
             // 
@@ -208,11 +213,11 @@
             this.textBoxAddrMapCall.Font = new System.Drawing.Font("Consolas", 10F);
             this.textBoxAddrMapCall.Location = new System.Drawing.Point(3, 211);
             this.textBoxAddrMapCall.Margin = new System.Windows.Forms.Padding(6, 3, 0, 6);
-            this.textBoxAddrMapCall.MaxLength = 4;
+            this.textBoxAddrMapCall.MaxLength = 3;
             this.textBoxAddrMapCall.Name = "textBoxAddrMapCall";
             this.textBoxAddrMapCall.Size = new System.Drawing.Size(172, 31);
             this.textBoxAddrMapCall.TabIndex = 22;
-            this.textBoxAddrMapCall.Text = "0000";
+            this.textBoxAddrMapCall.Text = "000";
             this.textBoxAddrMapCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxAddrMapCall.WordWrap = false;
             this.textBoxAddrMapCall.TextChanged += new System.EventHandler(this.ChangeTextAddrCallMap);
@@ -537,11 +542,6 @@
             this.textBoxNameCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxNameCall.WordWrap = false;
             this.textBoxNameCall.TextChanged += new System.EventHandler(this.ChangeTextCodeCall);
-            // 
-            // columnAddr
-            // 
-            this.columnAddr.Text = "Адрес";
-            this.columnAddr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // CallsForm
             // 
