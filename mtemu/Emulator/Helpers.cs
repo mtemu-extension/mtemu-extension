@@ -180,7 +180,7 @@ namespace mtemu
 
         public static string StopPointToString(bool stopPoint)
         {
-            return stopPoint ? "+" : "-";
+            return stopPoint ? Call.STOP_SYMBOL : " ";
         }
     }
 }
