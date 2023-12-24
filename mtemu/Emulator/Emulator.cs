@@ -393,7 +393,7 @@ namespace mtemu
                             case JumpType.JZ:
                                 if (prevZ_)
                                 {
-                                    callIndex_ = call.GetArg0();
+                                    callIndex_ = (call.GetArg0() << 8) + call.GetArg1();
                                     break;
                                 }
                                 ++callIndex_;
@@ -401,7 +401,7 @@ namespace mtemu
                             case JumpType.JC4:
                                 if (prevC4_)
                                 {
-                                    callIndex_ = call.GetArg0();
+                                    callIndex_ = (call.GetArg0() << 8) + call.GetArg1();
                                     break;
                                 }
                                 ++callIndex_;
@@ -409,7 +409,7 @@ namespace mtemu
                             case JumpType.JNZ:
                                 if (!prevZ_)
                                 {
-                                    callIndex_ = call.GetArg0();
+                                    callIndex_ = (call.GetArg0() << 8) + call.GetArg1();
                                     break;
                                 }
                                 ++callIndex_;
@@ -417,13 +417,13 @@ namespace mtemu
                             case JumpType.JSNC4:
                                 if (!prevC4_)
                                 {
-                                    callIndex_ = call.GetArg0();
+                                    callIndex_ = (call.GetArg0() << 8) + call.GetArg1();
                                     break;
                                 }
                                 ++callIndex_;
                                 break;
                             case JumpType.JMP:
-                                callIndex_ = call.GetArg0();
+                                callIndex_ = (call.GetArg0() << 8) + call.GetArg1();
                                 break;
                         }
                     } 
