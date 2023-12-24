@@ -360,10 +360,10 @@ namespace mtemu
             },
             {
                 WordType.DEVICE, new string[][] {
-                    new string[] {"","0000","PORT0 (UART)"},
-                    new string[] {"","0001","PORT1 (SPI)"},
-                    new string[] {"","0010","PORT2 (I2C)"},
-                    new string[] {"","0011","PORT3 (GPIO)"},
+                    new string[] {"","0000","GPIOA/UART"},
+                    new string[] {"","0001","GPIOC/SPI"},
+                    new string[] {"","0010","GPIOE/I2C"},
+                    new string[] {"","0011","Ctrl Reg"},
                 }
             },
         };
@@ -404,7 +404,7 @@ namespace mtemu
                 return "NONE";
             }
 
-            return $"PORT{number}";
+            return $"{items[number][2]}";
         }
 
         public static Command GetDefault()

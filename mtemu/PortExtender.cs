@@ -390,7 +390,7 @@ namespace mtemu
                 throw new ArgumentNullException("received value is null");
 
             byte[] buf = (byte[])res;
-            var addr_port = buf[0] & CMD_DATA_LEN_MASK;
+            var addr_port = buf[0];
             if (addr_port != (byte)(((byte)Addr << 4) | (byte)Port))
                 throw new ArgumentException("response port is invalid");
 

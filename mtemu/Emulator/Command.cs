@@ -130,7 +130,7 @@ namespace mtemu
                     break;
 
                 case ViewType.DEVICE_POINTER:
-                    res += $"Interface={ GetPortName(GetSelIndex(WordType.DEVICE)) }";
+                    res += $"Destination={ GetPortName(GetSelIndex(WordType.DEVICE)) }";
                     break;
 
                 case ViewType.LOAD_HIGH_4BIT:
@@ -196,7 +196,7 @@ namespace mtemu
                                     break;
                                 case DataPointerType.FULL_8_BIT:
                                     res += $"РОН({ GetRawValue(WordType.A) })=HIGH(DEV_PORT); ";
-                                    res += $"; РОН({ GetRawValue(WordType.B) })=LOW(DEV_PORT); ";
+                                    res += $"РОН({ GetRawValue(WordType.B) })=LOW(DEV_PORT); ";
                                     break;
                             }
                             res += $"DEVICE_ADDR={ GetRawValue(WordType.D) }";
