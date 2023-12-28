@@ -288,26 +288,27 @@
             // portLabel
             // 
             this.portLabel.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold);
-            this.portLabel.Location = new System.Drawing.Point(138, 135);
+            this.portLabel.Location = new System.Drawing.Point(135, 135);
             this.portLabel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.portLabel.Name = "portLabel";
             this.portLabel.Size = new System.Drawing.Size(40, 15);
             this.portLabel.TabIndex = 5;
-            this.portLabel.Text = "Port";
+            this.portLabel.Text = "Dest";
             this.portLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // portText
             // 
             this.portText.Font = new System.Drawing.Font("Consolas", 10F);
-            this.portText.Location = new System.Drawing.Point(133, 154);
+            //this.portText.Location = new System.Drawing.Point(133, 154);
+            this.portText.Location = new System.Drawing.Point(113, 154);
             this.portText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
             this.portText.MaxLength = 4;
             this.portText.Name = "portText";
             this.portText.ReadOnly = true;
-            this.portText.Size = new System.Drawing.Size(50, 23);
+            this.portText.Size = new System.Drawing.Size(80, 23);
             this.portText.TabIndex = 6;
             this.portText.TabStop = false;
-            this.portText.Text = "PORT0";
+            this.portText.Text = "None";
             this.portText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.portText.WordWrap = false;
             // 
@@ -342,7 +343,7 @@
             // mpLabel
             // 
             this.mpLabel.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold);
-            this.mpLabel.Location = new System.Drawing.Point(75, 135);
+            this.mpLabel.Location = new System.Drawing.Point(67, 135);
             this.mpLabel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.mpLabel.Name = "mpLabel";
             this.mpLabel.Size = new System.Drawing.Size(40, 15);
@@ -354,7 +355,7 @@
             // 
             this.mpText.BackColor = System.Drawing.SystemColors.Control;
             this.mpText.Font = new System.Drawing.Font("Consolas", 10F);
-            this.mpText.Location = new System.Drawing.Point(75, 154);
+            this.mpText.Location = new System.Drawing.Point(65, 154);
             this.mpText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
             this.mpText.MaxLength = 4;
             this.mpText.Name = "mpText";
