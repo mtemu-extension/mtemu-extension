@@ -34,6 +34,8 @@ namespace mtemu
 
         private int devPtr_;
 
+        private int CtrlReg_;
+
         private int prevRegA_;
         private int prevRegB_;
         private int prevRegQ_;
@@ -333,6 +335,7 @@ namespace mtemu
             }
             return commands_[i];
         }
+
 
         private int GetStackAddr_(int sp)
         {
@@ -935,7 +938,10 @@ namespace mtemu
                                     tmp_w = Helpers.MakeByte(regCommon_[a], regCommon_[b]);
                                     break;
                             }
-
+                            if(Port == PortExtender.Port.PORT3_4_HIGH  || Port == PortExtender.Port.PORT3_4_LOW || Port == PortExtender.Port.PORT3_8)
+                            {
+                                CtrlReg_ = tmp_w;
+                            }
                             portExtender_.WritePort(Addr, Port, pointerType, tmp_w);
                         }
                         else
@@ -1137,6 +1143,11 @@ namespace mtemu
         public int GetMP()
         {
             return mp_;
+        }
+
+        public int GetCtrlRegValue_()
+        {
+            return CtrlReg_;
         }
 
         public string GetPort()

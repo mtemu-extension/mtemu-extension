@@ -82,6 +82,12 @@
     <Compile Include="ExtenderSettingsForm.Designer.cs">
       <DependentUpon>ExtenderSettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CtrlRegForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CtrlRegForm.Designer.cs">
+      <DependentUpon>CtrlRegForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="HelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +157,9 @@
     </Compile>
     <EmbeddedResource Include="ExtenderSettingsForm.resx">
       <DependentUpon>ExtenderSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtrlRegForm.resx">
+      <DependentUpon>CtrlRegForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HelpForm.resx">
       <DependentUpon>HelpForm.cs</DependentUpon>

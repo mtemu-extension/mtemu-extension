@@ -63,6 +63,9 @@ namespace mtemu
         bool stickCallsForm_;
         CallsForm callsForm_;
 
+        bool stickCtrlRegForm_;
+        CtrlRegForm CtrlRegForm_;
+
         bool stickMemoryForm_;
         MemoryForm memoryForm_;
 
@@ -200,6 +203,9 @@ namespace mtemu
             stickCallsForm_ = false;
             callsForm_ = new CallsForm(this);
             Helpers.DoubleBuffered(callsForm_.listViewCall, true);
+
+            // Form with control register
+            CtrlRegForm_ = new CtrlRegForm();
 
             // Form with scheme of ALU
             schemeForm_ = new SchemeForm();
@@ -468,6 +474,15 @@ namespace mtemu
             {
                 callsForm_.Top = Top;
                 callsForm_.Left = Left - callsForm_.Width;
+            }
+        }
+
+        private void CtrlRegFormMove_()
+        {
+            if (stickCtrlRegForm_)
+            {
+                CtrlRegForm_.Top = Top;
+                CtrlRegForm_.Left = Left - CtrlRegForm_.Width;
             }
         }
 

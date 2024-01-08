@@ -175,6 +175,11 @@ namespace mtemu
             }
         }
 
+        private void UpdateCtrlReg(bool asNew = false)
+        {
+            SetOut_(CtrlRegForm_.textBoxCtrlRegValue, emulator_.GetCtrlRegValue_(), asNew, 8);
+        }
+
         private void UpdateStack_(bool asNew = false)
         {
             for (int i = 0; i < Emulator.GetStackSize(); ++i)
@@ -263,6 +268,7 @@ namespace mtemu
             UpdateStack_(asNew);
             UpdateMemory_(asNew);
             UpdateScheme_(asNew);
+            UpdateCtrlReg(asNew);
         }
 
         ////////////////////

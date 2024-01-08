@@ -152,6 +152,15 @@ namespace mtemu
             }
         }
 
+        private void CtrlRegMenuItemClick_(object sender, EventArgs e)
+        {
+            if (!CtrlRegForm_.Visible)
+            {
+                CtrlRegForm_.Show(this);
+                CtrlRegFormMove_();
+            }
+        }
+
         private void ExtenderSettingsMenuItemClick_(object sender, EventArgs e)
         {
             var deviceOpened = portExtender_.IsDeviceOpened();

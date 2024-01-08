@@ -135,6 +135,7 @@
             this.infoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.programMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtrlRegMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stackMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memoryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.schemeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1622,6 +1623,7 @@
             // 
             this.windowsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.programMenuItem,
+            this.CtrlRegMenuItem,
             this.stackMenuItem,
             this.memoryMenuItem,
             this.schemeMenuItem});
@@ -1636,6 +1638,14 @@
             this.programMenuItem.Size = new System.Drawing.Size(172, 22);
             this.programMenuItem.Text = "Команды";
             this.programMenuItem.Click += new System.EventHandler(this.ProgramMenuItemClick_);
+            // 
+            // CtrlRegMenuItem
+            // 
+            this.CtrlRegMenuItem.Name = "CtrlRegMenuItem";
+            this.CtrlRegMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.CtrlRegMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.CtrlRegMenuItem.Text = "Управляющий регистр";
+            this.CtrlRegMenuItem.Click += new System.EventHandler(this.CtrlRegMenuItemClick_);
             // 
             // stackMenuItem
             // 
@@ -2414,6 +2424,7 @@
         private System.Windows.Forms.Panel debugPanel;
         private System.Windows.Forms.Panel commandsPanel;
         private System.Windows.Forms.ToolStripMenuItem programMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CtrlRegMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem panelsMenuItem;
