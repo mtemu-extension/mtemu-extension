@@ -356,13 +356,25 @@ namespace mtemu
                 return;
             }
 
-            byte[] req_buf = new byte[CMD_REQUEST_PORT_WRITE_LENGTH];
-            byte[] data_buf = { (byte)(((byte)Addr << 4) | (byte)Port), val };
-            byte data_size = (byte)data_buf.Length;
-            object res;
+            try
+            {
+                byte[] req_buf = new byte[CMD_REQUEST_PORT_WRITE_LENGTH];
+                byte[] data_buf = { (byte)(((byte)Addr << 4) | (byte)Port), val };
+                byte data_size = (byte)data_buf.Length;
+                object res;
 
-            PrepareRequestBuf(ref req_buf, CMD_REQUEST_PORT_WRITE_LENGTH, data_buf, data_size, CMD_PORT_WRITE);
-            CmdSendRecv(ref deviceComPort_, req_buf, out res);
+                PrepareRequestBuf(ref req_buf, CMD_REQUEST_PORT_WRITE_LENGTH, data_buf, data_size, CMD_PORT_WRITE);
+                CmdSendRecv(ref deviceComPort_, req_buf, out res);
+            }
+            catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                    "Произошла ошибка в процессе записи в плату расширения",
+                    "Ошибка!",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Error);
+            }
+            
         }
 
         public byte ReadPort(int Addr, Port Port, DataPointerType pointerType)
@@ -382,21 +394,31 @@ namespace mtemu
             byte[] data_buf = { (byte)(((byte)Addr << 4) | (byte)Port), 0 };
             byte data_size = (byte)data_buf.Length;
             object res;
+            byte val;
 
-            PrepareRequestBuf(ref req_buf, CMD_REQUEST_PORT_READ_LENGTH, data_buf, data_size, CMD_PORT_READ);
-            CmdSendRecv(ref deviceComPort_, req_buf, out res);
+            try
+            {
+                PrepareRequestBuf(ref req_buf, CMD_REQUEST_PORT_READ_LENGTH, data_buf, data_size, CMD_PORT_READ);
+                CmdSendRecv(ref deviceComPort_, req_buf, out res);
+                if (res == null)
+                    throw new ArgumentNullException("received value is null");
 
-            if (res == null)
-                throw new ArgumentNullException("received value is null");
+                byte[] buf = (byte[])res;
+                var addr_port = buf[0];
+                if (addr_port != (byte)(((byte)Addr << 4) | (byte)Port))
+                    throw new ArgumentException("response port is invalid");
 
-            byte[] buf = (byte[])res;
-            var addr_port = buf[0];
-            if (addr_port != (byte)(((byte)Addr << 4) | (byte)Port))
-                throw new ArgumentException("response port is invalid");
-
-            byte val = buf[1];
-
-            return val;
+                val = buf[1];
+                return val;
+            }
+            catch (Exception) {
+                System.Windows.Forms.MessageBox.Show(
+                    "Произошла ошибка в процессе чтения из платы расширения",
+                    "Ошибка!",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Error);
+                return 0;
+            }           
         }
 
         public string SerialGet()
